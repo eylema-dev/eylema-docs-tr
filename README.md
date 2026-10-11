@@ -1,2 +1,28 @@
-# eylema-docs-tr
-Turkish companion documentation and historical design records for Eylema.
+# Eylema belgeleri — Türkçe
+
+İngilizce asılların Türkçe mimari, API ve ürün belgeleri. [English](https://github.com/eylema-dev/eylema-docs-en). İngilizce kanonik dildir; tanımlayıcılar çevrilmez.
+
+**Aşama: tasarım ve depo araçları.** Bu belgeler çalışan Rust uygulaması, GPU sonucu, eğitilmiş model veya üretim dağıtımı sunmaz. İlk ürün yönü deterministik görev konsoludur; sonraki kilometre taşları hesaplama, modeller ve öğrenmeyi ekler.
+
+## Sözleşmeler
+
+- [Mimari](docs/architecture.md)
+- [API ve insan denetimi](docs/api-reference.md)
+- [Geliştirme ve işletim](docs/development-and-operations.md)
+- [Öğrenme ve eğitim](docs/learning-and-training.md)
+- [Proje yapısı ve ilk uygulama](docs/project-structure.md)
+- [Yol haritası](docs/roadmap.md)
+
+## Depo sınırları
+
+Çalışma zamanı kaynakları ve makine şemaları [eylema](https://github.com/eylema-dev/eylema) içinde; katkı politikası ve kalite kapıları [devguide](https://github.com/eylema-dev/devguide) içindedir. [Depo haritası](https://github.com/eylema-dev/devguide/blob/main/docs/tr/repository-map.md) her sorumluluğu tanımlar. Deponun açık olması, bekleyen lisans kararını çözmez.
+
+Düzenlemeden önce [katkı rehberini](CONTRIBUTING.tr.md) okuyun. İngilizce asıl ile devguide içindeki sabitlenmiş depo kümesini birlikte güncelleyin. Yerel parmak izleri incelenen baytları kaydeder; depo kümesi kontrolü iki dili, API tanımlayıcılarını, yol haritası kimliklerini ve depolar arası bağlantıları karşılaştırır. Anlamsal çeviri doğruluğunu kanıtlamaz.
+
+## Tarihsel kayıtlar
+
+- [Mimari v0.1](archive/architecture-v0.1.tr.md)
+- [Mimari v0.2](archive/architecture-v0.2.tr.md)
+- [İlk API taslağı](archive/api-outline-v0.1.tr.md)
+
+Bu kayıtlar yürürlükteki sözleşmeler değildir. [Taşıma kaydı](https://github.com/eylema-dev/devguide/blob/main/docs/tr/repository-migration.md) kaynak revizyonlarını ve birleştirme sırasını açıklar. Yeni varsayılan dal belge bağlantıları, bakımcı eşgüdümlü taşıma PR'larını birleştirdiğinde erişilebilir olur.
