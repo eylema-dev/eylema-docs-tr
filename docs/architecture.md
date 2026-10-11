@@ -1,10 +1,26 @@
-# Eylema — Basit, performanslı eylemci yapay zekâ web platformu — v0.3
+# Eylema — Basit, performanslı eylemci yapay zekâ web platformu — v0.4
 
-Dil: Türkçe. Kaynak sürüm: 0.3.1. İngilizce kaynak belge: [Architecture v0.3](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
+Dil: Türkçe. Kaynak sürüm: 0.4.0. İngilizce kaynak belge: [Architecture v0.4](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
 
 Tarih: 11 Ekim 2026. Ürün: **Eylema**. Ürün çerçevesi: **Basit, Performanslı Eylemci Yapay Zeka Sürekli Geliştirme ve İşletme Web Platformu.** Durum: araştırmaya dayanan tasarım; çalışan framework, model desteği veya performans sonucu değildir.
 
 Bu belge güncel mimari yönü tanımlar. v0.2’deki kendi Rust bileşenleri ve bağımlılık sınırı korunur; 3B, decision/world modelleri, Unsloth eğitim hattı ve insan denetimi tasarımın birinci sınıf parçaları olur. Geliştirme sırası aşağıda güncellenmiştir.
+
+## Kabul edilmiş deneysel macOS kapsamı
+
+İlk sürüm 24 GB birleşik belleğe sahip tek Apple M4 Pro MacBook Pro cihazını hedefler. Gözlenen inşa ortamı macOS 27.0.1'dir; gerçek toolchain/SDK/tarayıcı envanteri ve yürütüm G04 ve sonraki kabul işlerinde doğrulanır. Linux desteği ve ikinci fiziksel cihaz ertelenmiştir. Bu Mac'te ölçülen farklı iş yükleri birden fazla cihaz sayılmaz. Depo aşaması belge olarak kalır; hedef seçmek runtime desteğini kanıtlamaz.
+
+| Yüzey | İlk sürüm sözleşmesi |
+|---|---|
+| Yerel hizmet ve CLI | Kendi Rust 1.99.0 bileşenleri, aarch64-apple-darwin; deterministik yürütücü, dayanıklı journal ve loopback web hizmeti |
+| Model ve tensör işleri | Kendi Rust CPU referansı ve Metal üzerinden native_gpu; açık platform bağları, nesne ömrü ve unsafe sınırı envanteri |
+| Tarayıcı görünümü | Taşınabilir Rust/Wasm ve WGSL ile WebGPU; native sunucu/dosya sistemi paketleri Wasm derlemesine dahil edilmez |
+| Eğitim | Bu Mac'te ayrı sabitlenmiş yerel Unsloth Studio/MLX tarifi; export etkinleşmeden kendi Rust kabulünden geçer |
+| Geliştirme | Gerçek Codex/Claude adaptörleri ve GitHub açıkça çevrimiçidir; yerel işletim/eğitim gizlice hosted modele çağrı yapmaz |
+
+HardwareProfile tek fiziksel cihazı ve gözlenen kapasiteyi belirtir. WorkloadProfile aynı cihazdaki yürütüm hedefi, backend, GPU API ve kesin iş yükü/ortam sürümlerini belirtir. Atama ve kanıtlar model-set şema 0.2.0 üzerinden iki kimliği birlikte bağlar; tarihsel 0.1.0 şeması değişmez. Yinelenmiş/kopuk kimlikler, gerçek kapasite, kaynak/hash güveni ve kanıt kapsamı anlamsal doğrulama gerektirir; yapısal JSON kontrolü bunları kanıtlamaz.
+
+Tarayıcı kapanması yerel yürütücüyü veya Metal işçisini sonlandırmaz. Yeniden açılış güncel snapshot/olaylara bağlanır. Yerel oturum Host/Origin, CSRF, istek boyut/süre ve kapsamlı yetki kontrollerini uygulamalıdır. Kalıcı durum varsayılan olarak macOS Application Support içindeki Eylema dizininde tutulur; onay cevabı dayanıklı journal yazımından sonra verilir. Kimlik bilgileri, ham özel eğitim kayıtları ve gizli model muhakemesi normal olay kaydına girmez. Rastgelelik/hash için yeni kriptografi yerine standart macOS hizmetleri kullanılır. macOS, SDK, tarayıcı, sürücüler, host bağları, Metal shader ve WGSL açık bağımlılıklar olarak kalır.
 
 ## Ürünün merkezindeki fikir
 
@@ -23,7 +39,7 @@ flowchart TB
     D --> P[Kod ve model PR'ı: test, inceleme, kabul]
     P --> R[Sürümlü uygulama ve model takımı]
     R --> B[Tarayıcı: Rust/Wasm ve WebGPU]
-    R --> N[Yerel Linux: Rust yürütücüsü]
+    R --> N[Yerel macOS: Rust yürütücüsü]
     B --> O[İşletim: durum, karar, eylem, sonuç]
     N --> O
     O --> E[İzinli deneyim ve değerlendirme kayıtları]
@@ -143,7 +159,7 @@ Doküman her işlem için amaç, girdi/çıktı, önkoşul, yan etki, yetki, zam
 | 2 | Deterministik karar başlangıcı + kendi tensor işlemleri + küçük öğrenilmiş politika/dinamik model | Tahmin–gerçek farkı, kapalı döngü başarı ve CPU/GPU uyum testi |
 | 3 | Desteklenen bir küçük yerel dil modeli ve ortak GPU yönetimi | LLM + karar + sahne aynı cihazda hedef kalite/kaynak sınırında |
 | 4 | Deneyim kaydı, insan düzeltmesi, ilk Unsloth tarifi ve model kabulü | Kaydı modele kadar izlenen, ayrılmış görevlerde ölçülen iyileşme |
-| 5 | Büyük AI geliştirme takımı, GitHub PR ve donanıma göre takım sürümü | Gerçek ihtiyaçtan PR’a; iki kaynak profilinde gerekçeli atama |
+| 5 | Büyük AI geliştirme takımı, GitHub PR ve donanıma göre takım sürümü | Gerçek ihtiyaçtan PR’a; tek fiziksel Mac üzerinde iki iş yükünde gerekçeli atama |
 | 6 | Üretim web özellikleri ve açık katkı ekosistemi | Seçilen üretim protokolleri ve bağımsız katkıların uyumluluk kanıtı |
 
 API ve değerlendirme tanımları her dilimin içindedir. Bakımcı, ilk çalışan uygulama olarak görev çekirdeği ve web akışını seçti. [Proje yapısı ve kabul senaryoları](project-structure.md) önerilen uygulamayı açıklar. Küçük bir 3B depo/yerleştirme ortamı bu kanıttan sonra gelir; öğrenilmiş kararlar ve doğal dil hedefleri sonraki aşamalarda eklenir. Bu runtime senaryolarının hiçbiri henüz uygulanmadı.
@@ -156,6 +172,6 @@ Tam özellikli kendi web motoru, 3B motor, model yürütücüsü ve eğitim ekos
 - [Öğrenme verisi ve eğitim protokolü](learning-and-training.md)
 - [API sözleşmesi ve insan denetimi](api-reference.md)
 - [Geliştirme isteği JSON şeması](https://github.com/eylema-dev/eylema/blob/main/ai-team-protocol/request.schema.json)
-- [Yerel model takımı JSON şeması](https://github.com/eylema-dev/eylema/blob/main/ai-team-protocol/model-set-release.schema.json)
+- [Yerel model takımı JSON şeması](https://github.com/eylema-dev/eylema/blob/main/ai-team-protocol/v0.2/model-set-release.schema.json)
 
 Bu belgeler mimari ve yapısal sözleşme teslimidir. Depo katkı araçları ve PR çalışması, planlanan otonom geliştirme takımından ayrıdır. Bu belgeler eğitim, model/cihaz kıyası, framework yürütmesi veya zamanlanmış izleme kanıtı sunmaz.

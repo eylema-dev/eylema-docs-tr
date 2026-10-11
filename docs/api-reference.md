@@ -1,6 +1,6 @@
 ---
 docs_language: tr
-source_revision: 0.1.0
+source_revision: 0.2.0
 status: design
 canonical_language: en
 ---
@@ -15,7 +15,15 @@ canonical_language: en
 
 Kendi geliştirdiğimiz sürümlü tip tanımları, makine sözleşmesinin esas kaynağı olacaktır. Önerilen üretim süreci bu tanımlardan OpenAPI, JSON Schema, MCP araç açıklamaları ve Rust SDK üretir. Adaptörler yetkiyi genişletemez, varsayılan değer uyduramaz veya başarısızlığı başarıya çeviremez. Bu üretim tasarımı üçüncü taraf üretim bağımlılığı getirmez. Mevcut şemalar seçili teslim nesnelerini kapsar; bu API'nin tamamını tanımlamaz.
 
-İzinler işlem bazında birleşir: modeli incelemek onu eğitme; sürüm önermek onu etkinleştirme yetkisi vermez. Bir kurulum aynı özneye birden fazla izin tanımlarken belirli geçişlerde ayrı onay isteyebilir. Tarayıcı istemcisi isteğine `native_linux` yazarak yerel dosya sistemi, süreç veya GPU ayrıcalıkları kazanamaz.
+İzinler işlem bazında birleşir: modeli incelemek onu eğitme; sürüm önermek onu etkinleştirme yetkisi vermez. Bir kurulum aynı özneye birden fazla izin tanımlarken belirli geçişlerde ayrı onay isteyebilir. Tarayıcı istemcisi isteğine `native_macos` yazarak yerel dosya sistemi, süreç veya GPU ayrıcalıkları kazanamaz.
+
+## İlk sürüm hedefleri ve iş yükü bağı
+
+Deneysel sözleşme tek M4 Pro/24 GB Mac üzerinde `native_macos` ve aynı cihazda `browser` kullanır. `native_linux` ve ikinci cihaz kabulü sonraki kapsamdır. Metadata tablosu izin verilen bağlamları belirtir; `listCapabilities` yalnız uygulanmış ve kabul edilmiş işlem/backend'leri bildirmelidir. CPU `native_cpu` / `none`, Metal `native_gpu` / `metal`, tarayıcı CPU `wasm_cpu` / `none`, WebGPU `webgpu` / `webgpu` kullanır. Her çift backend / `gpu_api` anlamındadır.
+
+`HardwareProfile` fiziksel cihazı; `WorkloadProfile` ise `target`, `backend`, `gpu_api`, `workload_ref`, `workload_sha256` ve `environment_ref` alanlarını kaydeder. Model-set `schema_version` 0.2.0, `workload_profiles` gerektirir; atama/kanıtlar `hardware_profile_id` ve `workload_profile_id` taşır. Tüketici kabul öncesi iki referansı çözer, yinelenmiş/kopuk kimlikleri reddeder ve fiziksel bağların eşleşmesini doğrular. Şema geçerliliği veya opak referans yürütüm kanıtı değildir. Kökteki model-set 0.1.0 sözleşmesi tarihsel kalır; yeni Mac manifestleri `ai-team-protocol/v0.2/model-set-release.schema.json` kullanır. `runtime_protocol_version` manifest revizyonundan bağımsız olarak 0.1.0 kalır. Belge kaynak revizyonu 0.2.0'dır; işlem yolları /v0.1 olarak kalır.
+
+Native hizmet/CLI/model işleri ve tarayıcı render yetkileri ayrıdır. Loopback hizmet yerel oturum, Host/Origin ve CSRF kontrolleri, sınırlı girdi/süre ve açık hatalar gerektirir. Tarayıcı kapanınca native yürütüm sürer; yeniden açılış snapshot/olayları okur. Kayıt onayı Eylema Application Support dizinindeki dayanıklı journal yazımından sonra verilir. Model eylem önerir; yetki veremez. Runtime kabul kapısı geçilene kadar bunların tamamı uygulanmamış sözleşmedir.
 
 ## Denetim mekanizmaları
 
@@ -38,7 +46,7 @@ Yayınlanacak her işlem, uygulaması kabul edilmeden önce şu şablonu sağlam
 | `operation_id`, `operation_version` | Kalıcı kimlik ve uyumlu sözleşme sürümü |
 | `request_schema_ref`, `response_schema_ref`, `error_schema_ref` | Tam sürümler, zorunlu alanlar, sınırlar ve reddedilen örnekler |
 | `side_effect_class`, `resource_scope` | Okuma, kayıt değişikliği, hesaplama veya dış etki; tam yetkili kaynak kapsamı |
-| `execution_context`, `required_capabilities` | Desteklenen `browser` / `native_linux` hedefleri ve gerçek önkoşullar |
+| `execution_context`, `required_capabilities` | Desteklenen `browser` / `native_macos` hedefleri ve gerçek önkoşullar |
 | `permissions`, `oversight_requirements` | Özne izinleri ve birlikte uygulanan denetim yükümlülükleri |
 | `preconditions`, `expected_revision` | Durum varsayımları ve eşzamanlılık kontrolleri |
 | `approval_binding`, `policy_revision` | Geçerli karar kaydı ve belirleyici politika |

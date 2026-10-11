@@ -18,32 +18,32 @@
     {
       "path": "docs/api-reference.md",
       "language": "tr",
-      "sha256": "545208f91009cf4f8da26835d5aa7dc3d5a4dd990d775d92b9a94c9622a188b0"
+      "sha256": "c5d3d3ccb02a340e0e2e7114af4d384a0cf3b976be500fd40fd9d0aedd7717f3"
     },
     {
       "path": "docs/architecture.md",
       "language": "tr",
-      "sha256": "d5df2c43393e7287f71c35df9eb7b949257decb519f4a5cffb33e7b60ef16c1d"
+      "sha256": "11e097eb20edf4092347daecbaed8af85a17d87e2468d6612ee6945c9aea5b9f"
     },
     {
       "path": "docs/development-and-operations.md",
       "language": "tr",
-      "sha256": "6d582abcdbe391ce731911b8a54e394d6b0d96fc67224d3990f4267c55a8e385"
+      "sha256": "a5d2dc1ed662c3c26cc07522ec6643a013990c72ee2e93fcde85f5c5ffee6d49"
     },
     {
       "path": "docs/learning-and-training.md",
       "language": "tr",
-      "sha256": "b453942a68f215d8aa418cf610cce96b15ca910af098163b30ec09cd94bce495"
+      "sha256": "4600203bd7ce9034f8d8c20c9a028090165f61fea13caa259f91f4242b8e0666"
     },
     {
       "path": "docs/project-structure.md",
       "language": "tr",
-      "sha256": "572c35a11b1dd3adca0c1e477be219ddd1216cec84a3e555dfaed3996b8d45d0"
+      "sha256": "c7425617a7f784e0165db00b327b95349044f84b2b087f7209a6b89fe8faf6f4"
     },
     {
       "path": "docs/roadmap.md",
       "language": "tr",
-      "sha256": "29f91660d264a1ce88d7d7c2208e761ee8aa80cdf7313c5f5d2015c5fa4678bb"
+      "sha256": "f6b7cc669b4d0110599e9de625d4693b757f21ec4e6d6bf7640952ae3869f324"
     }
   ]
 }
