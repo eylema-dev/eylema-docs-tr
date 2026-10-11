@@ -1,6 +1,6 @@
 # Eylema ilk sürüm yol haritası
 
-Sürüm **0.2.0**, 11 Ekim 2026. [İngilizce](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md) kaynak dildir. Hedef **v0.1.0 deneysel** sürümdür; üretime hazır evrensel framework iddiası değildir. Aşamalar tarih sözü değil kabul kapılarıdır. Bugün yalnızca depo belgeleri vardır; katkı altyapısı PR'ı birleştirilip `main` üzerinde doğrulanana kadar M0 öneri durumundadır.
+Revizyon **0.2.0**, 11 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: **v0.1.0 deneysel**; üretime hazır evrensel framework değildir. Kilometre taşları kabul kapılarıdır, tarih taahhüdü değildir. Bugün yalnızca depo belgeleri ve araçları vardır. İlk M0 katkı temeli çekirdek PR #2 ile birleşti; bu depo bölünmesi kendi PR’ları birleştirilip `main` üzerinde kontrol edilene kadar inceleme aşamasındadır.
 
 ## Seçilen ilk çalışan uygulama
 
