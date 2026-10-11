@@ -1,6 +1,6 @@
-# Eylema — Öğrenme verisi ve eğitim protokolü — v0.1
+# Eylema — Öğrenme verisi ve eğitim protokolü — v0.2
 
-Dil: Türkçe. Kaynak sürüm: 0.1.0. İngilizce kaynak belge: [Learning data and training protocol](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/learning-and-training.md). Makinece okunabilir kimlik ve alan adları iki dilde aynıdır.
+Dil: Türkçe. Kaynak sürüm: 0.2.0. İngilizce kaynak belge: [Learning data and training protocol](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/learning-and-training.md). Makinece okunabilir kimlik ve alan adları iki dilde aynıdır.
 
 Tarih: 11 Ekim 2026. Durum: tasarım önerisi. Bu belge veri toplamayı, eğitim başlatmayı veya model dağıtmayı etkinleştirmez. Gerçek eğitim, dışa aktarma, performans ölçümü veya model kabul testi çalıştırılmadı.
 
@@ -11,6 +11,12 @@ Amaç; platform çalıştıkça yerel modelleri geliştirmeye yarayan, kaynağı
 Üretimde kendi Rust bileşenlerimiz veri toplama politikasını, görev yürütmeyi, model atamasını ve kabul edilmiş model paketlerini yönetir. Kullanıcının açık seçimiyle Unsloth, eğitim ve paketleme ortamında kullanılan dış geliştirme aracıdır. Python, eğitim kütüphaneleri ve dönüştürücüler bu ortamın envanterine yazılır; Rust çalışma motorunun gizli bağımlılığına dönüşmez. Eğitim sunucusunun kesilmesi kabul edilmiş uygulamaların çalışmasını durdurmaz.
 
 Akış: izinli olaylar → bölüm/geri bildirim kayıtları → seçme ve doğrulama → değişmez veri sürümü → sabitlenmiş eğitim tarifi → aday model → bağımsız değerlendirme → sürüm PR'ı → yetkili onay → sınırlı dağıtım → etkin sürüm veya geri dönüş. Beceri ve iş akışı öğretimi ağırlık eğitiminden ayrı sürümlenir; ölçülen ihtiyacı çözüyorsa model eğitimi zorunlu değildir.
+
+## İlk sürüm yerel eğitim sınırı
+
+İlk eğitim hedefi native Metal ve tarayıcı iş yüklerini kullanan aynı M4 Pro/24 GB Mac’tir. Unsloth’un güncel gereksinimleri Studio Mac/MLX eğitim yolunu anlatır; bu, kurulu sürümün, seçilen modelin veya export tarifinin çalıştığını kanıtlamaz. Core’un Apple yolu ayrı ve gelişmekte olan bir destek iddiasıdır. G35 kurulu sürümü doğrulamalı ve sınırlı, sabitlenmiş yerel tarifi tamamlamalıdır; desteklenmeyen eğitim başka motor veya hosted hizmete geçmeden açıkça hata verir. [Unsloth gereksinimleri](https://unsloth.ai/docs/get-started/fine-tuning-for-beginners/unsloth-requirements)
+
+Belgelenmiş eğitim Python aralığı 3.11–3.13’tür; CI Python 3.14’ten ayrıdır. Çözülmüş bağımlılıklar, temel model/veri hash’leri, yöntem ve export sürümleri kaydedilir. CPU FP32 referansı ve hedef Metal FP16 yürütümü ayrı kabul adımlarıdır; nicemleme isteğe bağlıdır. Eğitim, render ve çıkarım tek fiziksel GPU/bellek havuzunu paylaşır: ek cihaz uydurmak yerine ayrı iş yükü profilleri ölçülür. Bu belge Goal’ünde yerel eğitim veya dışa aktarılmış model kabulü çalıştırılmamıştır.
 
 ## Kayıt sözleşmeleri ve izin
 

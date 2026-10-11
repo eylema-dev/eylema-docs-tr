@@ -1,8 +1,8 @@
-# Eylema — Geliştirme ve yerel işletim takımı protokolleri — v0.1
+# Eylema — Geliştirme ve yerel işletim takımı protokolleri — v0.2
 
-Dil: Türkçe. Kaynak sürüm: 0.1.0. İngilizce kaynak belge: [AI team protocols](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/development-and-operations.md). Projenin API kimlikleri, alanları ve hata kodları İngilizce kalır.
+Dil: Türkçe. Kaynak sürüm: 0.2.0. İngilizce kaynak belge: [AI team protocols](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/development-and-operations.md). Projenin API kimlikleri, alanları ve hata kodları İngilizce kalır.
 
-Tarih: 11 Ekim 2026. Durum: uygulanacak protokol tasarımı; çalışan orkestratör, model seçimi, otonom PR üretimi veya zamanlanmış izleme kurulmuş değildir. Depo katkı şablonları ve CI kontrolleri [CONTRIBUTING.tr.md](https://github.com/eylema-dev/devguide/blob/main/CONTRIBUTING.tr.md) içinde ayrıca tanımlanır. Şema sürümü: 0.1.0. Örnekler gerçek görev, model veya ölçüm değildir.
+Tarih: 11 Ekim 2026. Durum: uygulanacak protokol tasarımı; çalışan orkestratör, model seçimi, otonom PR üretimi veya zamanlanmış izleme kurulmuş değildir. Depo katkı şablonları ve CI kontrolleri [CONTRIBUTING.tr.md](https://github.com/eylema-dev/devguide/blob/main/CONTRIBUTING.tr.md) içinde ayrıca tanımlanır. NeedSpec şeması ve runtime protokolü 0.1.0 kalır; yeni macOS ModelSetRelease şeması 0.2.0’dır. Örnekler gerçek görev, model veya ölçüm değildir.
 
 ## İki takım, ortak kanıt düzeni
 
@@ -11,6 +11,14 @@ Tarih: 11 Ekim 2026. Durum: uygulanacak protokol tasarımı; çalışan orkestra
 **İşletim takımı:** Uygulamanın cihazında veya tanımlanmış yerel node’da çalışan uzman modeller ve Rust becerileri; kabul edilmiş model/araç/yetki paketi içinde günlük işleri yürütür. İşletim görevi kendiliğinden büyük bulut modele taşınmaz. Geliştirme için dış model kullanma izni, işletim verilerinin dışarı gönderilmesine genel izin vermez.
 
 İki takım için de başarı, aynı sürüme bağlı çalıştırılmış kanıtla gösterilir. Bir modelin açıklaması test sonucu değildir. Protokolleri uygulayan Rust denetleyici durum geçişlerini ve araç yetkilerini kontrol eder; modeller bu denetleyiciye yapılandırılmış iş önerileri verir.
+
+## Kabul edilmiş macOS yürütüm bağlamı
+
+Deneysel sürüm 24 GB birleşik bellekli tek Apple M4 Pro MacBook Pro kullanır. Yerel işletim kendi Rust CPU/Metal bileşenleriyle native macOS üzerinde; tarayıcı ise aynı cihazda taşınabilir Wasm/WebGPU bileşenleriyle çalışır. Linux ve ikinci cihaz kabulü sonraki iştir. İki iş yükü profili iki donanım cihazı değildir. Tarayıcı kapanınca native yürütücü sürer; yeniden açılan görünüm snapshot/olaylara bağlanır.
+
+Model-set 0.2.0 her atama/kanıtı HardwareProfile ve WorkloadProfile kimliklerinin ikisine bağlar. Kabul öncesi kimlikleri çözün; fiziksel cihaz eşleşmesini, gözlenen kapasiteyi, kesin iş yükü/ortamı ve gerçek kanıtı doğrulayın. Sentetik aday yalnız yapı doğrular. Runtime protokolü 0.1.0 ile NeedSpec 0.1.0 ayrı sözleşmelerdir. Bu belge hiçbirini uygulamaz.
+
+İlk geliştirme adaptörleri gerçek Codex ve Claude’dur; sağlayıcı ve GitHub erişimi açıkça çevrimiçidir. Çağrılan model/effort ayarlarını, araç sürümlerini ve doğrulanabilir sonuçları Goal/run kanıtında kaydedin; çağrı ayarı gizli runtime modelinin bağımsız kanıtı değildir. Sağlayıcı erişimi yerel işletim/eğitim verisini dışarı aktarmaya veya depo yetkilerini genişletmeye izin vermez.
 
 ## A — İhtiyaçtan GitHub pull request’e geliştirme protokolü
 
@@ -69,7 +77,7 @@ Her iş izole bir dal/çalışma alanında yürür. Paralel ajanlarda dosya sahi
 
 Kontrol sonuçları `passed`, `failed`, `skipped`, `not_run`, `not_applicable` olarak ayrılır. Zorunlu bir kontrolün `skipped` veya `not_run` olması hazır geçişini engeller. `not_applicable` modelin keyfî seçimiyle zorunluluğu kaldıramaz; sürümlü kalite profili karar verir.
 
-Yeni commit, etkilenen inceleme ve kanıtları geçersiz kılar. Hedef dal değişmişse birleştirme davranışı da yeniden doğrulanır. Çapraz derleme, Linux’ta çalıştırma kanıtı; CPU fallback, GPU testi sayılmaz. Hızlı kontroller önce, pahalı tarayıcı/donanım testleri ilgili değişiklikler için sonra çalışır.
+Yeni commit, etkilenen inceleme ve kanıtları geçersiz kılar. Hedef dal değişmişse birleştirme davranışı da yeniden doğrulanır. Çapraz derleme native yürütüm kanıtı değildir; macOS yürütümü ve ertelenmiş Linux desteği ayrı kanıt gerektirir; CPU fallback, GPU testi sayılmaz. Hızlı kontroller önce, pahalı tarayıcı/donanım testleri ilgili değişiklikler için sonra çalışır.
 
 Kontrolleri veya yetki politikasını değiştiren PR, kendi yeni kurallarıyla kendine geçer not veremez. Denetleyici mevcut kabul edilmiş politika sürümünü kullanır; standart değişiklikleri ayrı değerlendirilir.
 
@@ -89,9 +97,9 @@ Ajanın/test edilen kodun çalıştığı ortam ile GitHub yazma/model servis ki
 
 | Nesne | İçerik |
 |---|---|
-| HardwareProfile | CPU/OS/browser, backend, desteklenen özellikler, gözlenen kapasite, profil sürümü |
+| HardwareProfile | Fiziksel cihaz kimliği, çip/mimari, OS sürümü, gözlenen birleşik bellek kapasitesi, profil sürümü |
 | ResourceSnapshot | Mevcut yük, ayrılabilir kaynak tahmini, kuyruk, güç durumu, ölçüm zamanı |
-| WorkloadProfile | Görev, dil/veri türü, kalite eşiği, context/çıktı sınırı, gecikme ve kaynak bütçesi |
+| WorkloadProfile | Fiziksel cihaz bağı, hedef/backend/GPU API, görev/veri, kalite/context/kaynak limitleri, kesin iş yükü ve ortam referansları |
 | ModelCatalogEntry | Kaynak revision, ağırlık özeti, tokenizer, mimari, nicemleme ve motor uyumu |
 | EvaluationReport | Model ve takımın gerçek görev/donanım sonuçları; ortam ve sürüm bağları |
 | ModelSetRelease | Birlikte kabul edilmiş modeller, roller, profiller, seçenekler ve kanıtlar |
@@ -153,7 +161,7 @@ Canary aşamasında küçük bir kullanım kümesi gözlenir. Kabul eşiği bozu
 
 Bir katkıcı görev sınıflandırmasının bir cihaz sınıfında yavaş olduğunu bildirir. Geliştirme takımı kabul senaryosunu belirler; mevcut küçük modeli ve daha hafif adayını aynı görevlerde karşılaştırır. Gerekirse kendi Rust hesaplama yolunu iyileştirir. Kod/model/politika değişikliği, bağımsız inceleme ve ölçümlerle taslak PR’a dönüşür. Depo kontrollerinden geçen paket kabul edilir; cihazdaki yönetici onaylı takımı deneyip rol atamasını günceller. Gecikme iyileşirken kalite geriliyorsa paket kabul edilmez.
 
-İlk uygulama kanıtı; gerçek bir ihtiyaçtan gerçek PR’a giden geliştirme akışı ve en az iki kaynak profilinde açıkça farklı, ölçümle gerekçelendirilmiş işletim atamasıdır. Henüz bu akışlar çalıştırılmamış, cihaz/model seçimi yapılmamıştır.
+İlk uygulama kanıtı; gerçek bir ihtiyaçtan gerçek PR’a giden geliştirme akışı ve aynı M4 Pro/24 GB Mac üzerindeki en az iki iş yükü profilinde açıkça farklı, ölçümle gerekçelendirilmiş işletim atamasıdır. Akışlar henüz çalıştırılmamıştır; cihaz hedefi seçilmiştir, ölçümler ve kabul edilmiş model atamaları beklemektedir.
 
 ## Makinece okunabilir başlangıç dosyaları
 
@@ -161,6 +169,8 @@ Bir katkıcı görev sınıflandırmasının bir cihaz sınıfında yavaş oldu�
 
 - `ai-team-protocol/request.schema.json`: geliştirme isteğinin yapısal sözleşmesi.
 - `ai-team-protocol/request.example.json`: örnek bir istek; gerçek yetki veya görev değildir.
-- `ai-team-protocol/model-set-release.schema.json`: aday/kabul edilmiş yerel model takımının yapısal sözleşmesi.
+- `ai-team-protocol/model-set-release.schema.json`: korunmuş tarihsel 0.1.0 model-set yapısı.
+- `ai-team-protocol/v0.2/model-set-release.schema.json`: tek fiziksel cihaz ve ayrı bağlı iş yükleri olan macOS aday/kabul yapısı.
+- `ai-team-protocol/v0.2/model-set-release.example.json`: sentetik aday; kabul edilmiş model takımı veya donanım sonucu değildir.
 
 JSON Schema yalnız yapısal doğrulama sağlar. Kimlik/yetki, model uyumluluğu, içerik özeti doğruluğu, cross-reference bütünlüğü, kanıtın güvenilir üreticisi ve durum geçişleri Rust denetleyicinin anlamsal kontrolleri olacaktır. Şema doğrulaması, framework’ün veya AI takımının çalıştığını kanıtlamaz.

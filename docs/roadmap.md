@@ -1,6 +1,6 @@
 # Eylema ilk sürüm yol haritası
 
-Revizyon **0.2.0**, 11 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: **v0.1.0 deneysel**; üretime hazır evrensel framework değildir. Kilometre taşları kabul kapılarıdır, tarih taahhüdü değildir. Bugün yalnızca depo belgeleri ve araçları vardır. İlk M0 katkı temeli çekirdek PR #2 ile birleşti; bu depo bölünmesi kendi PR’ları birleştirilip `main` üzerinde kontrol edilene kadar inceleme aşamasındadır.
+Revizyon **0.3.0**, 11 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: **v0.1.0 deneysel**; üretime hazır evrensel framework değildir. Kilometre taşları kabul kapılarıdır, tarih taahhüdü değildir. Bugün yalnızca depo belgeleri ve araçları vardır. M0 temeli ve depo bölünmesi merge edilmiştir; G02 belge/uygulama aşama kapıları ayrı inceleme ve güncel PR/main CI’dan geçmiştir. Bu depo araçları kanıtıdır; uygulama yürütümü değildir.
 
 ## Seçilen ilk çalışan uygulama
 
@@ -8,33 +8,39 @@ Bakımcı görev çekirdeği ve web arayüzünü seçti: görev oluşturma, çal
 
 Sonraki deneysel sürüm aynı uygulamayı küçük 3B yerleştirme ortamı, öğrenilmiş politika/dünya dinamiği, desteklenen tek yerel dil modeli, izinli öğrenme ve geliştirme takımının PR akışıyla genişletir. Her yeteneğin kendi kabul koşulu vardır; ilk kanıtın seçilmesi sonraki yeteneklerin hazır olduğu anlamına gelmez.
 
-İlk sürüm bütün GPU veya modelleri değil, belgelenmiş Linux cihazı ve tarayıcı/cihaz birleşimini destekler. Atama aşaması ikinci ölçülmüş donanım profili gerektirir. Sayısal limitlerden önce gerçek bellek, gecikme/kare süresi ve kalite başlangıçlarını ölçün; donanım ve iş yükü seçilmeden rakam uydurmayın.
+İlk deneysel sürüm 24 GB birleşik bellekli tek Apple M4 Pro MacBook Pro’yu; aynı cihazda native macOS CPU/Metal ve tarayıcı Wasm/WebGPU’yu hedefler. macOS 27.0.1 gözlenmiştir; G04 gerçek araç/SDK/tarayıcıyı doğrular. Linux desteği ve ikinci fiziksel cihaz kabulü ertelenmiştir. Atama, tek HardwareProfile’a bağlı en az iki ölçülmüş WorkloadProfile karşılaştırır; bunlar iki cihaz sayılmaz. Sayısal limitlerden önce gerçek bellek, gecikme/kare süresi ve kalite başlangıçlarını ölçün; donanım ve iş yükü seçilmeden rakam uydurmayın.
 
 | ID | Sürüm kapısı | Kapsam | Kabul kanıtı | Bağımlılık |
 |---|---|---|---|---|
 | M0 | Katkı temeli | Eylemci kuralları, iki dil, issue/PR şablonları, salt okunur CI | Doğrulayıcılar olumsuz örnekleri reddeder; PR ve main CI gözlenir; bakımcı incelemesi/dal kuralı durumu açıktır | Yok |
-| M1 | `v0.1.0-alpha.1` | Kendi Rust çalışma alanı, tipli görev/durum/eylem sözleşmeleri, deterministik yürütücü | Sabit toolchain; harici üretim Cargo bağımlılığı yok; Linux/Wasm derleme; Linux birim/kurtarma testleri; sınırlar ve yetki retleri; yeni Rust kaynağı kabulünden önce bağlı CI | M0 |
-| M2 | `v0.1.0-alpha.2` | İlk çalışan görev konsolu: kendi web arayüzü, yerel sunucu ve kalıcı durum | Oluştur, çalıştır, incele, durdur, kaydet, yeniden başlat/aç; yinelenen istek; yetki reddi; gerçek dışı durdurma onayı yok; ağ/kimlik/TLS sınırı belgeli | M1 |
-| M3 | `v0.1.0-alpha.3` | Tarayıcı GPU sınırı ve küçük 3B sahne | Adlandırılmış tarayıcı/sürücüde gerçek WebGPU; cihaz kaybı ve desteklenmeyen yol hataları; sınırlı bellek/iş planlama; yükte kare süreleri; host bağları ve WGSL envanteri | M2 |
-| M4 | `v0.1.0-beta.1` | CPU tensör referansları, öğrenilmiş karar politikası, küçük dünya dinamiği modeli | Bildirilmiş toleransta CPU/GPU eşliği; ayrılmış görevlerde kapalı döngü başarı; tahmin hatası; kısıtlara uyum; deterministik başlangıcı geçme veya geçememe sonucu açık | M3 |
-| M5 | `v0.1.0-beta.2` | Kendi motorumuzda tek sabit küçük yerel dil modeli | Ağırlık/tokenizer/işlem/nicemleme doğrulaması; yükleme/ilk sonuç/sıcak ölçümler; ayrılmış görev kalitesi; ortak sahne/politika/LLM bütçeleri; desteklenmeyen modelde açık hata; gizli bulut fallback yok | M4 |
-| M6 | `v0.1.0-rc.1` | Sürümlü model atama ve izinli öğrenme döngüsü | İki ölçülmüş profil; kabul edilmiş takım manifesti; canary/geri dönüş; veri izni/köken/tekilleştirme/holdout; sabit dış Unsloth tarifi; adayın kendi motorumuzda yeniden doğrulanması | M5 |
-| M7 | `v0.1.0` | İhtiyaçtan PR'a geliştirme protokolü ve deneysel sürüm | Girdi, plan, uygulama, kontroller ve bağımsız incelemeden geçen gerçek görev; aynı sözleşmede iki yapılandırılmış sağlayıcı adaptörü; yinelenmeyen PR tekrarları; sınırlar, lisans ve yeniden üretilebilir sürüm kanıtı | M6 |
+| M1 | `v0.1.0-alpha.1` | Kendi Rust çalışma alanı, tipli görev/durum/eylem sözleşmeleri, deterministik yürütücü | Rust 1.99.0; sıfır harici üretim Cargo bağımlılığı; native aarch64-apple-darwin derleme/test ve seçilmiş taşınabilir kütüphane Wasm derlemesi; native birim/kurtarma, sınır ve yetki ret testleri; Rust kaynağıyla birlikte uygulama CI’ı etkin | M0 |
+| M2 | `v0.1.0-alpha.2` | İlk görev konsolu: kendi web arayüzü, yerel sunucu ve dayanıklı durum | Oluştur/çalıştır/incele/durdur/kaydet/yeniden başlat/aç; yinelenen istek, yetki reddi, etkili durma; loopback oturumu, Host/Origin, CSRF, sınırlı girdi; dayanıklı onay ve kurtarma hataları | M1 |
+| M3 | `v0.1.0-alpha.3` | Native Metal işçisi, tarayıcı WebGPU ve küçük 3B sahne | M4’te gerçek hesaplama/readback; adlandırılmış tarayıcı/sürücü WebGPU; işçi/cihaz kaybı ve desteklenmeyen yol hataları; ortak bellek/iş bütçeleri; birleşik yük/kare süresi ölçümleri; host, Metal shader ve WGSL envanteri | M2 |
+| M4 | `v0.1.0-beta.1` | Sınırlı 8×8 yerleştirme için CPU/Metal tensör referansları, öğrenilmiş politika ve küçük dünya modeli | Önceden tanımlı toleransta CPU/Metal eşliği; ayrılmış görevlerde kapalı döngü başarı ve tahmin hatası; kısıtlar; deterministik başlangıçla dürüst karşılaştırma | M3 |
+| M5 | `v0.1.0-beta.2` | Kendi runtime’ımızda sabit Qwen3-0.6B adayı | G27 kesin artifact/tokenizer/operatör/hakları sabitler; FP32 CPU referansı ve FP16 Metal yürütümü; nicemleme isteğe bağlı; yükleme/ilk sonuç/sıcak ölçüm ve ayrılmış kalite; ortak sahne/politika/LLM bütçeleri; desteklenmeyende açık hata, hosted fallback yok | M4 |
+| M6 | `v0.1.0-rc.1` | Sürümlü model atama ve izinli yerel öğrenme | Tek M4 cihazında en az iki ölçülmüş iş yükü; model-set 0.2.0 fiziksel/iş yükü bağları; kabul manifesti, canary/geri dönüş; izin/köken/tekilleştirme/holdout; sınırlı sabit yerel Unsloth Studio/MLX denemesi; export kendi Rust motorunda yeniden kabul edilmiş | M5 |
+| M7 | `v0.1.0` | İhtiyaçtan PR’a protokol ve deneysel sürüm | Gerçek görevde girdi/plan/kod/kontrol/ayrı inceleme; aynı sözleşmede gerçek Codex ve Claude adaptörleri, açık çevrimiçi GitHub/sağlayıcı erişimi, idempotent PR tekrarı; yeniden üretilebilir sürüm paketinden önce lisans kararı ve G44 tam Mac kabulü | M6 |
 
 ## İlk uygulanabilir iş listesi
 
-Bu kimlikler plan referansıdır; açılmış GitHub issue'su değildir. Uygulamadan önce bir satırı kabul testleri olan sınırlı issue'ya dönüştürün.
+Bu EYL kimlikleri plan referansı olarak kalır. Kabul edilmiş G00–G45/W01 kartları bunları sınırlı işlere böler; tekil Goal issue’ları kesin kapsam ve kabule bağlanır. Her uygulamadan önce sınırlı issue açın. Tarihsel ilk Goal önerileri canlı tamamlanma kaydı değildir.
 
 | ID | Sonraki iş | Tamamlanma koşulu |
 |---|---|---|
 | EYL-001 | Lisans ve katkı koşullarını seç | Bakımcı kararı ve köken kuralları kaydedilmiş; örtük katkıcı anlaşması yok |
-| EYL-002 | İlk iş yükü ve donanım matrisini sabitle | Linux, tarayıcı ve ikinci atama profili ile yeniden üretilebilir sahne/görev verisi belgeli; erişilemeyen donanım `not_run` kalır |
-| EYL-003 | Kendi Rust çalışma alanı ve CI'ını kur | Kesin Rust sürümü ve lockfile; Linux/Wasm derleme ve gerçek Linux testleri; harici runtime crate'i olmadığını gösteren envanter; belge aşaması kaynak engeli yerine gerçek Rust kapıları |
+| EYL-002 | İlk iş yükü/donanım matrisini sabitle | G03 sözleşmeleri tek M4 Pro/24 GB Mac ve ayrı native/tarayıcı iş yüklerini belirtir; G04 araç envanterini çıkarır; G18 görev/sahneyi ölçer; Linux ve ikinci fiziksel cihaz sonraki kapsamdır; çalıştırılmamış yürütüm `not_run` kalır |
+| EYL-003 | Kendi Rust çalışma alanı ve CI’ını kur | Rust 1.99.0, lockfile, native macOS derleme/test ve seçilmiş taşınabilir Wasm kütüphaneleri; harici runtime crate’i yok; G02 aşama kuralları ve G07 gerçek uygulama kapıları |
 | EYL-004 | Görev durum makinesini uygula | Başarı, hata, yetki reddi, zaman aşımı, yinelenen teslim ve iptal testli; dış etkiler için tam bir kez garantisi iddiası yok |
 | EYL-005 | Kalıcı yerel görev günlüğünü uygula | Kesilmiş kayıt, çökme/yeniden başlatma ve uyumsuz biçim testli; sürüm ve kurtarma davranışı açık |
 | EYL-006 | İlk web görev ekranını yap | Oluştur/çalıştır/incele/durdur/kaydet/yeniden aç akışı tarayıcıda sınırlı yetki ve görünür hatalarla gösterilmiş |
-| EYL-007 | WebGPU kaynak sınırı prototipi | Tek hesaplama ve 3B sahne gerçek donanımda çalışmış; CPU referansı, desteklenmeyen yol ve cihaz kaybı raporlanmış |
-| EYL-008 | İlk model sözleşmelerini seç | Politika/dinamik/LLM mimarileri işlem kapsamı, dağıtım hakları ve ölçülmüş kaynak sınırlarına göre seçilmiş; seçim destek kanıtı değildir |
+| EYL-007 | Native Metal ve WebGPU kaynak sınırlarını prototiple | Gerçek M4 hesaplama/readback ve tarayıcı 3B sahnesi; CPU referansı, desteklenmeyen/cihaz kaybı hataları ve birleşik bellek/iş limitleri |
+| EYL-008 | İlk model sözleşmelerini sabitle | Qwen3-0.6B kabul edilmiş ilk adaydır; FP32 CPU ve FP16 Metal yolları, isteğe bağlı nicemleme; G27 artifact/hak/operatör kapsamını sabitler; politika/dünya modeli sözleşmeleri ve ölçülmüş kaynak limitleri kabul gerektirir; aday seçimi destek değildir |
+
+## Goal sırası ve kanıt sınırları
+
+G03 bu sözleşmeleri eşler; G04 gerçek Rust/macOS/SDK/tarayıcı ortamını doğrular. G07 uygulama CI’ıyla runtime kaynağını etkinleştirir. F1–F7, M1/M2 akışıdır; G17 dış örneği kabul edilmiş çekirdeğe karşı kanıtlar. Kabul edilmiş aksiyon planı bu temelden sonra, GPU işlerinden önce G38–G43 geliştirme orkestrasyonuna izin verir; M7 sürüm kapısı yine M6’ya bağlıdır. G18 sayısal kaynak limitleri kabulünden önce iş yüklerini ölçer. G27 tensör/yükleyici/model yürütümünden önce model sözleşmesini sabitler; G35/G36 yerel eğitim ve kendi motorumuzda export’u ayrı kanıtlar. G45 paketinden önce G44 bu Mac’te tam on iki adımlı akışı çalıştırır. W01 doğru website içeriğini hazırlayabilir; yayın ayrı yetki ve eşleşen canlı kanıt gerektirir.
+
+Eklenen model-set şeması 0.2.0’dır; runtime/NeedSpec 0.1.0 kalır. Sentetik şema örneği, belge CI’ı, başarılı derleme, GPU yürütümü, eğitilmiş model kalitesi ve sürüm kabulü ayrı kanıtlardır. Bu yol haritası runtime, GPU veya eğitim sonucu sağlamaz.
 
 ## v0.1.0 sürüm kontrol listesi
 
@@ -47,4 +53,4 @@ Bu kimlikler plan referansıdır; açılmış GitHub issue'su değildir. Uygulam
 
 ## İlk sürüm dışında bırakılanlar
 
-Genel CAD çekirdeği, bütün model mimarileri, dağıtık eğitim, yalnız Rust'tan oluşan Linux çekirdeği, her GPU sürücüsü, otomatik satın alma, gözetimsiz ayrıcalıklı kendi kendini değiştirme ve tüm üretim web özellikleri sonraki kararlardır. Yol haritası uzun vadeli mimariyi korurken önce sınırlı tek uçtan uca uygulamayı kanıtlar.
+Linux desteği, ikinci fiziksel cihaz kabulü, genel CAD çekirdeği, bütün model mimarileri, dağıtık eğitim, yalnız Rust'tan oluşan Linux çekirdeği, her GPU sürücüsü, otomatik satın alma, gözetimsiz ayrıcalıklı kendi kendini değiştirme ve tüm üretim web özellikleri sonraki kararlardır. Yol haritası uzun vadeli mimariyi korurken önce sınırlı tek uçtan uca uygulamayı kanıtlar.

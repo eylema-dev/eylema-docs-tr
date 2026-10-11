@@ -1,6 +1,6 @@
 # Proje yapısı ve ilk çalışan uygulama
 
-Sürüm **0.1.0**, 11 Ekim 2026. [İngilizce kaynak](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/project-structure.md).
+Sürüm **0.2.0**, 11 Ekim 2026. [İngilizce kaynak](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/project-structure.md).
 
 **Kabul edilen yön:** önce görev çekirdeği ve web arayüzüyle görev oluşturma, çalıştırma, durdurma, kaydetme ve yeniden açma akışını kanıtlamak. Bakımcı bu akışı 11 Ekim 2026 tarihinde seçti. **Uygulama önerisi:** aşağıdaki bileşen adları, bağımlılık yapısı ve iş yükü EYL-003 öncesindeki mimari inceleme içindir. Bu belge Rust çalışma alanı veya uygulama sağlamaz.
 
@@ -40,9 +40,15 @@ flowchart TD
     Journal --> Contracts
 ```
 
-Bağımlılıklar sözleşmelere doğru yönelir. Runtime tarayıcı, GitHub veya model sağlayıcı entegrasyonlarını içe aktarmaz. Ana süreç kalıcılığı ve yürütmeyi birlikte yönetir; web bileşeni yetki kontrollerini atlayamaz veya günlüğe doğrudan yazamaz. İletim biçimleri aynı sürümlü anlamların adaptörleridir. Gelecekteki tarayıcı/Wasm yürütmesi ayrı destek profili alır; Linux'a bağlı tarayıcı arayüzü runtime'ın Wasm'da çalıştığını kanıtlamaz.
+Bağımlılıklar sözleşmelere doğru yönelir. Runtime tarayıcı, GitHub veya model sağlayıcı entegrasyonlarını içe aktarmaz. Ana süreç kalıcılığı ve yürütmeyi birlikte yönetir; web bileşeni yetki kontrollerini atlayamaz veya günlüğe doğrudan yazamaz. İletim biçimleri aynı sürümlü anlamların adaptörleridir. Gelecekteki tarayıcı/Wasm yürütmesi ayrı destek profili alır; macOS'a bağlı tarayıcı arayüzü runtime'ın Wasm'da çalıştığını kanıtlamaz.
 
-Mevcut politika kapsamında kendi Rust üretim kodumuz ve sıfır harici üretim Cargo paketi kullanılır. Rust, tarayıcı, işletim sistemi ve gerekli host bağları açık bağımlılıklar olarak kalır. CI Python'ı uygulama runtime'ının dışındadır. Kesin toolchain, günlük biçimi, istek kodlaması ve host bağları uygulamadan önce seçilip envantere alınmalıdır; bu dizin önerisinden varsayılmaz.
+Mevcut politika kapsamında kendi Rust üretim kodumuz ve sıfır harici üretim Cargo paketi kullanılır. Rust, tarayıcı, işletim sistemi ve gerekli host bağları açık bağımlılıklar olarak kalır. CI Python'ı uygulama runtime'ının dışındadır. Native Mac hedefi için Rust 1.99.0 ve aarch64-apple-darwin; açıkça taşınabilir kütüphaneler için wasm32-unknown-unknown seçilmiştir. G04 gerçek araç/SDK/tarayıcı envanterini doğrular; G07 Rust kaynağı kabulünden önce gerçek derleme/test kapılarını etkinleştirir. Günlük biçimi, istek kodlaması ve host bağları ayrı incelenmiş uygulama gerektirir.
+
+## Mac host ve taşınabilir kütüphane sınırı
+
+İlk deneysel cihaz 24 GB birleşik bellekli tek Apple M4 Pro MacBook Pro’dur; macOS 27.0.1 gözlenmiştir, araç envanteri ve gerçek yürütüm G04’te doğrulanacaktır. Native hizmet/CLI, dayanıklı journal ve sonraki CPU/Metal model işçileri host’a aittir. Tarayıcı aynı cihazda Wasm/WebGPU/WGSL ile render yapar. Wasm’a yalnız incelenmiş taşınabilir kütüphaneler derlenir; dosya sistemi/sunucu host’u native kalır. Hedef seçimi veya çapraz derleme kabul edilmiş yürütüm değildir.
+
+Sonraki Metal/model/orkestratör modülleri yalnız test edilmiş sınır ve gerçek tüketiciyle eklenir. Tarayıcı kapanması native işçiyi durdurmaz; yeniden açılış kayıtlı durum/olaylara bağlanır. Journal varsayılanı macOS Application Support/Eylema’dır; onay dayanıklı yazıdan sonra verilir, normal kayıtlara ham özel eğitim içeriği veya kimlik bilgisi girmez. Linux ve ikinci cihaz kabulü sonraki kapsamdır.
 
 ## İlk tarayıcı gösteriminin kabul koşulları
 
@@ -60,7 +66,7 @@ Mevcut politika kapsamında kendi Rust üretim kodumuz ve sıfır harici üretim
 
 Depolama sözleşmesi yazının ne zaman kalıcı olduğunu ve günlük hatasının alındı yanıtını nasıl etkilediğini belirtmelidir. Durdurma isteği başarı kanıtı, sürenin dolması da işin durduğunun kanıtı değildir. Yeniden başlatma, sonucu belirsiz dış etkileri sessizce tekrar yürütmemelidir. İlk iş yükünde dış etki yoktur; kayıtlar yine bu ayrımı korumalıdır.
 
-Önce Rust durum makinesi ve kurtarma testlerini Linux'ta çalıştırın, ardından adlandırılmış tarayıcıda bu hizmete bağlı arayüzü gösterin. Wasm derlemesini ve varsa gerçek Wasm yürütmesini ayrı raporlayın. M1/M2; WebGPU, model çıkarımı, eğitim veya otonom geliştirme desteği kanıtlamaz.
+Önce Rust durum makinesi ve kurtarma testlerini M4 Pro Mac üzerinde native çalıştırın, ardından adlandırılmış tarayıcıda bu hizmete bağlı arayüzü gösterin. Wasm derlemesini ve varsa gerçek Wasm yürütmesini ayrı raporlayın. M1/M2; WebGPU, model çıkarımı, eğitim veya otonom geliştirme desteği kanıtlamaz.
 
 ## Uygulamadan önce verilecek kararlar
 
@@ -68,9 +74,9 @@ Depolama sözleşmesi yazının ne zaman kalıcı olduğunu ve günlük hatasın
 |---|---|---|
 | İlk ürün sonucu | Yukarıdaki görev çekirdeği ve web akışı | Bakımcı seçti; bu hedefin değişikliklerini açıkça kaydet |
 | Çalışma alanı sınırları ve iş yükü | Bileşen tablosu ve sınırlı deterministik adımlar | EYL-003 öncesi öneriyi incele; dizin adları yayımlanmış paket değildir |
-| Toolchain ve ilk cihazlar | Ölçülmüş bir Linux ortamı ve bir tarayıcı/cihaz birleşimi | EYL-002/EYL-003'te Rust sürümünü/hedeflerini sabitle ve gerçek yürütme ortamlarını belirt |
+| Toolchain ve ilk cihazlar | Tek M4 Pro/24 GB fiziksel Mac ve ayrı bağlı native/tarayıcı iş yükü profilleri | G04’te Rust 1.99.0/hedefleri ve gözlenen macOS/SDK/tarayıcı envanterini doğrula; bu cihazda iş yüklerini ölç; Linux ve ikinci fiziksel cihaz ertelenmiştir |
 | Kalıcılık ve kurtarma | Açık kalıcılık anlamlarıyla yerel ekleme/yeniden oynatma günlüğü | EYL-005'te biçim/sürüm, yarım yazı tespiti, tekrar/idempotency saklama süresi ve sürmekte olan işin kurtarılmasını belirle |
-| İlk ağ erişimi | Yalnız loopback üzerinden yerel prototip önerisi | EYL-006 öncesi tarayıcı origin, istek sınırları ve yetki işleyişini belirle; uzak kullanım ayrı kimlik/TLS tasarımı ister |
+| İlk ağ erişimi | Yalnız loopback üzerinden yerel prototip önerisi | EYL-006 öncesi yerel oturum, Host/Origin, CSRF, istek limitleri ve yetki kontrollerini zorunlu tut; uzak kullanım ayrı kimlik/TLS tasarımı ister |
 | Kamuya açık dağıtım koşulları | Lisans seçimi bekliyor | EYL-001'i bakımcı kararlaştırır; kaynak görünürlüğü yeniden kullanım koşullarını belirlemez |
 
 Sonraki uygulama işi, bileşen önerisi ve gerekli ortam kararları kabul edildikten sonra EYL-003'tür. EYL-004'ün ihtiyaç duyduğu en küçük çalışma alanını kurun, gerçek Rust CI'ını bağlayın ve aynı değişiklikte yalnız dokümantasyona izin veren kaynak engelini değiştirin. EYL-005 ve EYL-006, kayıtlı görevle ilk tarayıcı akışını tamamlar. Sonraki her yetenek için ayrı kabul gerekir.
