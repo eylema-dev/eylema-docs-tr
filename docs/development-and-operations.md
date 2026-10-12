@@ -174,3 +174,9 @@ Bir katkıcı görev sınıflandırmasının bir cihaz sınıfında yavaş oldu�
 - `ai-team-protocol/v0.2/model-set-release.example.json`: sentetik aday; kabul edilmiş model takımı veya donanım sonucu değildir.
 
 JSON Schema yalnız yapısal doğrulama sağlar. Kimlik/yetki, model uyumluluğu, içerik özeti doğruluğu, cross-reference bütünlüğü, kanıtın güvenilir üreticisi ve durum geçişleri Rust denetleyicinin anlamsal kontrolleri olacaktır. Şema doğrulaması, framework’ün veya AI takımının çalıştığını kanıtlamaz.
+
+## Kabul edilen teslim önceliği — 12 Ekim 2026
+
+[İlk ürün kararı](project-structure.md), kabul edilmiş görev konsolu temelinden sonra ve isteğe bağlı GPU/model/eğitim tamamlanmadan önce küçük tek gerçek ihtiyaçtan PR’a kanıtı sıralar. NeedSpec, plan/bütçe, sınırlı değişiklik, gerçek kontroller, ayrı ve kesin revizyona bağlı inceleme ve gerçek PR yanıtı kaydedilir. İnsan tarafından işletilen araçlar iş akışının uygulanabilirliğini gösterebilir; yalnız çalıştırılmış koordinatör/sağlayıcı adaptörleri otonom teslimi kanıtlar. G38–G43 kabullerini korur ve M2/G17’den öğrenmeden bağımsız ilerleyebilir. Tam sürüm kabulü ayrıdır.
+
+Ek Mac mini M4/24 GB ve Linux RTX 4070 Ti Super/16 GB VRAM + 32 GB RAM donanımı, kabul edilmiş model ataması değil envanterdir. Cihaz/iş yükü kimlikleri ve açıkça çalıştırılmamış kontroller korunur. Apache-2.0 kendi kod/belgelerimizi kapsar; varlık hakları ayrıdır.

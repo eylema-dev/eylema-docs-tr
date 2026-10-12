@@ -1,14 +1,18 @@
 # Eylema — Basit, performanslı eylemci yapay zekâ web platformu — v0.4
 
-Dil: Türkçe. Kaynak sürüm: 0.4.0. İngilizce kaynak belge: [Architecture v0.4](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
+Dil: Türkçe. Kaynak sürüm: 0.4.1. İngilizce kaynak belge: [Architecture v0.4](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
 
-Tarih: 11 Ekim 2026. Ürün: **Eylema**. Ürün çerçevesi: **Basit, Performanslı Eylemci Yapay Zeka Sürekli Geliştirme ve İşletme Web Platformu.** Durum: araştırmaya dayanan tasarım; çalışan framework, model desteği veya performans sonucu değildir.
+Tarih: 12 Ekim 2026. Ürün: **Eylema**. Ürün çerçevesi: **Basit, Performanslı Eylemci Yapay Zeka Sürekli Geliştirme ve İşletme Web Platformu.** Durum: uygulanan görev çekirdeği gelişen ürün mimarisi. [Çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) mevcut yürütüm kapsamını belirtir; model, eğitim ve tam ürün kabulü ayrıdır.
 
 Bu belge güncel mimari yönü tanımlar. v0.2’deki kendi Rust bileşenleri ve bağımlılık sınırı korunur; 3B, decision/world modelleri, Unsloth eğitim hattı ve insan denetimi tasarımın birinci sınıf parçaları olur. Geliştirme sırası aşağıda güncellenmiştir.
 
+## Kabul edilen ilk ürün kararları
+
+12 Ekim 2026 tarihli [karar kaydı ve donanım envanteri](project-structure.md), geliştirici odaklı tek kullanıcılı yerel görev konsolunu, erken ihtiyaçtan PR’a kanıtı ve kendi kaynak/belgelerimiz için Apache-2.0 seçimini kaydeder. Birincil M4 Pro hedefi korunur; Mac mini M4 ve Linux RTX 4070 Ti Super ayrı kabul bekleyen ek cihazlardır. Mevcut Rust tipleri, EYL/EYLJ ve platform bağları korunur; model/öğrenme deterministik ve cihaz ölçümünü izler. Güncel uygulama kanıtı [çekirdektedir](https://github.com/eylema-dev/eylema/blob/main/README.tr.md).
+
 ## Kabul edilmiş deneysel macOS kapsamı
 
-İlk sürüm 24 GB birleşik belleğe sahip tek Apple M4 Pro MacBook Pro cihazını hedefler. Gözlenen inşa ortamı macOS 27.0.1'dir; gerçek toolchain/SDK/tarayıcı envanteri ve yürütüm G04 ve sonraki kabul işlerinde doğrulanır. Linux desteği ve ikinci fiziksel cihaz ertelenmiştir. Bu Mac'te ölçülen farklı iş yükleri birden fazla cihaz sayılmaz. Depo aşaması belge olarak kalır; hedef seçmek runtime desteğini kanıtlamaz.
+İlk sürüm 24 GB birleşik belleğe sahip tek Apple M4 Pro MacBook Pro cihazını hedefler. G04 özgün macOS 27.0.1 toolchain/SDK/tarayıcı envanterini kaydeder; her yeni kabul çalışması gerçek ortamını ve yürütümünü ayrıca kaydetmelidir. Linux desteği ve ikinci fiziksel cihaz ertelenmiştir. Bu Mac'te ölçülen farklı iş yükleri birden fazla cihaz sayılmaz. Bu ürün belgesi deposu dokümantasyon aşamasında kalır; güncel runtime kanıtı çekirdeğe aittir ve ek hedef seçmek desteği kanıtlamaz.
 
 | Yüzey | İlk sürüm sözleşmesi |
 |---|---|
@@ -155,14 +159,15 @@ Doküman her işlem için amaç, girdi/çıktı, önkoşul, yan etki, yetki, zam
 | 0 | Dar hedef, API/durum/eylem sözleşmeleri, destek ve bağımlılık matrisi | Aynı ihtiyacı insan ve AI araçlarının tutarlı okuyabilmesi |
 | 1a | Rust görev sözleşmeleri, deterministik yürütücü ve yerel günlük | Yetkili yürütme, sınırlı iş, doğru iptal bildirimi ve yeniden başlatma sonrası kurtarma |
 | 1b | Asgari web arayüzü ve yerel ana hizmet | Tarayıcıda görev oluşturma, çalıştırma, inceleme, durdurma, kaydetme ve yeniden açma |
-| 1c | Seçilebilir WebGPU 3B sahne | Nesne hareketi ve gerçek tarayıcı/cihaz yürütmesi |
+| 1c | Erken ve sınırlı ihtiyaçtan PR’a iş akışı kanıtı | Gerçek kapsamlı görev, kontroller, ayrı inceleme ve gerçek PR; otonom adaptör desteği kendi yürütümünü gerektirir |
+| 1d | Seçilebilir WebGPU 3B sahne | Nesne hareketi ve gerçek tarayıcı/cihaz yürütmesi |
 | 2 | Deterministik karar başlangıcı + kendi tensor işlemleri + küçük öğrenilmiş politika/dinamik model | Tahmin–gerçek farkı, kapalı döngü başarı ve CPU/GPU uyum testi |
 | 3 | Desteklenen bir küçük yerel dil modeli ve ortak GPU yönetimi | LLM + karar + sahne aynı cihazda hedef kalite/kaynak sınırında |
 | 4 | Deneyim kaydı, insan düzeltmesi, ilk Unsloth tarifi ve model kabulü | Kaydı modele kadar izlenen, ayrılmış görevlerde ölçülen iyileşme |
 | 5 | Büyük AI geliştirme takımı, GitHub PR ve donanıma göre takım sürümü | Gerçek ihtiyaçtan PR’a; tek fiziksel Mac üzerinde iki iş yükünde gerekçeli atama |
 | 6 | Üretim web özellikleri ve açık katkı ekosistemi | Seçilen üretim protokolleri ve bağımsız katkıların uyumluluk kanıtı |
 
-API ve değerlendirme tanımları her dilimin içindedir. Bakımcı, ilk çalışan uygulama olarak görev çekirdeği ve web akışını seçti. [Proje yapısı ve kabul senaryoları](project-structure.md) önerilen uygulamayı açıklar. Küçük bir 3B depo/yerleştirme ortamı bu kanıttan sonra gelir; öğrenilmiş kararlar ve doğal dil hedefleri sonraki aşamalarda eklenir. Bu runtime senaryolarının hiçbiri henüz uygulanmadı.
+API ve değerlendirme tanımları her dilimin içindedir. Bakımcı, ilk çalışan uygulama olarak görev çekirdeği ve web akışını seçti. [Proje yapısı ve kabul senaryoları](project-structure.md) önerilen uygulamayı açıklar. Küçük bir 3B depo/yerleştirme ortamı bu kanıttan sonra gelir; öğrenilmiş kararlar ve doğal dil hedefleri sonraki aşamalarda eklenir. Güncel çekirdek kanıtı uygulanan görev konsolu alt kümesini kaydeder; sonraki yetenekler ayrı kabul gerektirir.
 
 Tam özellikli kendi web motoru, 3B motor, model yürütücüsü ve eğitim ekosistemi ciddi bir kapsamdır. AI ekipleri geliştirmeyi hızlandırabilir; donanım doğrulaması ve olgunlaşma ihtiyacını ortadan kaldırmaz. Dilimler bu nedenle çalıştırılmış kanıtla genişler; “her model/her cihazda sorunsuz” taahhüdü verilmez.
 
