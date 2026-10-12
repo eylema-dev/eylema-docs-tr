@@ -5,45 +5,45 @@
     {
       "en": "CONTRIBUTING.md",
       "tr": "CONTRIBUTING.tr.md",
-      "en_sha256": "7c429f9d4d2b3f94a2f8ea62ebdfe2a9d2e1fa7ffe910e3e0e1b62fba81042b2",
-      "tr_sha256": "d24d77240cf3c1df157faeec0c5105211134a2c87bd3f1038a7730c87c0cef29"
+      "en_sha256": "69006b72ec68dfc9bf2b8b10112bffc8a25e8700e76072fea45af368e8822dbc",
+      "tr_sha256": "12e7ddb3f367dde13e0bb056585b36806213fee1c569986abffe55510ada8b6f"
     }
   ],
   "documents": [
     {
       "path": "README.md",
       "language": "tr",
-      "sha256": "dcc13d62b8a9798deb66706323c6c17ffb9b6462b16be34a23b39183d70e1e7a"
+      "sha256": "c23268df362ef646f4b5665423f8758acb75720a0bf76bc40a3cd484c1b3fde0"
     },
     {
       "path": "docs/api-reference.md",
       "language": "tr",
-      "sha256": "c5d3d3ccb02a340e0e2e7114af4d384a0cf3b976be500fd40fd9d0aedd7717f3"
+      "sha256": "a51dff89da9fa78bca252fa671ff7858a0ad9efc5515f4f0bb1f0e8033cf31fb"
     },
     {
       "path": "docs/architecture.md",
       "language": "tr",
-      "sha256": "11e097eb20edf4092347daecbaed8af85a17d87e2468d6612ee6945c9aea5b9f"
+      "sha256": "b760d9bec56e2a4dea1ecfe3f15a0352f4eb206900f6aded735c5618ef428746"
     },
     {
       "path": "docs/development-and-operations.md",
       "language": "tr",
-      "sha256": "a5d2dc1ed662c3c26cc07522ec6643a013990c72ee2e93fcde85f5c5ffee6d49"
+      "sha256": "4fc4674b11a30e09283a03b30794a5e4d3ecd51bad4fecf2fe50c089c1e41b3e"
     },
     {
       "path": "docs/learning-and-training.md",
       "language": "tr",
-      "sha256": "4600203bd7ce9034f8d8c20c9a028090165f61fea13caa259f91f4242b8e0666"
+      "sha256": "cee9b83a95c39b3142456b206c9754873c833bddb587281e758e123d5506bd38"
     },
     {
       "path": "docs/project-structure.md",
       "language": "tr",
-      "sha256": "c7425617a7f784e0165db00b327b95349044f84b2b087f7209a6b89fe8faf6f4"
+      "sha256": "a97b1edc9191a2a8f8e49dcfea6578155027449fa9a774e347bd617e92fb2893"
     },
     {
       "path": "docs/roadmap.md",
       "language": "tr",
-      "sha256": "f6b7cc669b4d0110599e9de625d4693b757f21ec4e6d6bf7640952ae3869f324"
+      "sha256": "cbe5c10175adf65dd170985926e5702fd056b5b2fd3248556f451ecac4c2569e"
     }
   ]
 }

@@ -1,58 +1,71 @@
-# Proje yapısı ve ilk çalışan uygulama
+# Proje yapısı ve kabul edilen ilk ürün kararları
 
-Sürüm **0.2.0**, 11 Ekim 2026. [İngilizce kaynak](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/project-structure.md).
+Sürüm **0.3.0**, 12 Ekim 2026. [İngilizce kaynak](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/project-structure.md).
 
-**Kabul edilen yön:** önce görev çekirdeği ve web arayüzüyle görev oluşturma, çalıştırma, durdurma, kaydetme ve yeniden açma akışını kanıtlamak. Bakımcı bu akışı 11 Ekim 2026 tarihinde seçti. **Uygulama önerisi:** aşağıdaki bileşen adları, bağımlılık yapısı ve iş yükü EYL-003 öncesindeki mimari inceleme içindir. Bu belge Rust çalışma alanı veya uygulama sağlamaz.
+Bakımcı 12 Ekim 2026 tarihinde 1, 2, 4, 5, 6 ve 8 numaralı önerileri kabul etti, aşağıdaki üç cihazlık envanteri bildirdi ve Apache-2.0 seçti. Bu kararlar güncel ürün yönünü günceller. Tarihsel Goal kayıtlarını yeniden yazmaz; kalan runtime, model veya donanım kabulünün geçtiğini iddia etmez.
 
-## Tek platform, küçük bir ilk uygulama
+## İlk kullanıcı ve ürün sonucu
 
-Eylema'nın uzun vadeli kapsamı AI destekli geliştirme ve yerel eylemci işletimi için bir Rust web platformudur. İlk uygulama güvenilir görev yürütme ve kurtarma temelini kurar. Sonraki 3B, GPU, model ve öğrenme aşamaları bu temeli genişletir; ilk tarayıcı gösterimi için ön koşul değildir.
+İlk kullanıcı, yerel bir eylemci uygulaması geliştiren yazılımcıdır. İlk teslimat tek kullanıcılı görev konsoludur: görev oluşturma, sınırlı deterministik adımları yürütme, ilerleme/sonuç inceleme, yetkili kalan işi durdurma, hizmeti yeniden başlatma ve aynı kalıcı görevi açma. İlk adımlar yalnız uygulamanın kendi görev durumunu değiştirir. Uzak yönetim, birden fazla tenant ve keyfî dosya sistemi/süreç/ağ eylemleri ilk ürünün dışındadır.
 
-Önerilen iş yükü, görünür ilerlemesi ve kayıtlı sonucu olan sınırlı sayıda deterministik adımdır. Adımlar yalnız uygulamanın kendi görev durumunu değiştirir. Kullanıcı görev oluşturur, başlatır, olaylarını inceler, kalan işi durdurur, yerel hizmeti yeniden başlatır ve aynı kayıtlı görevi tekrar açar. Böylece model erişimi veya GPU gerektirmeden durum, yetki, iptal ve kalıcılık sözleşmeleri somut olarak denenir.
+Kullanılabilir görev konsolu önizlemesi GPU, model veya eğitimi beklemeden M2'de değerlendirilir. Kabul edilmiş çekirdek/örnek temelinden sonra ve isteğe bağlı öğrenme çalışmasından önce küçük bir gerçek ihtiyaçtan PR'a kanıt gelir. Tam otonom geliştirme/sağlayıcı kabulü ve bütün deneysel sürüm ayrı M7/G44/G45 kapılarını korur. Küçük 3B yerleştirme ortamı, sonraki yeteneklerin referans uygulamasıdır; ilk kullanıcının görev konsolu için ön koşul değildir.
 
-## Dil ve depo yerleşimi
+Çekirdekte Rust görev/runtime/journal/host/web bileşenleri ve CLI zaten vardır. [Güncel çekirdek durumuna](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) ve revizyona bağlı kanıtlarına bakın. Gerçek kişi doğrulaması açık sınırlama olarak kalır: varsayılan insan olmayan oturumun FORBIDDEN alması, insan yetkisiyle etkili durdurma senaryosunu kanıtlamaz. Bu karar F3'ü kaldırmaz veya kontrolünün zayıflatılmasına izin vermez.
 
-İngilizce kanoniktir; Türkçe onun eşzamanlı karşılığıdır. Kod, tanımlayıcılar, şablonlar ve teknik görev kayıtları İngilizcedir. [Organizasyon depo haritası](https://github.com/eylema-dev/devguide/blob/main/docs/tr/repository-map.md) depo sınırlarını tanımlar. Bu depo güncel Türkçe ürün belgelerini tutar; Rust çekirdeği ve şemalar `eylema` içinde birlikte kalır. Katkı politikası `devguide` içindedir. Bölünme belge sahipliğini değiştirir; aşağıdaki önerilen çalışma zamanı mimarisini değiştirmez.
+## Dil, sahiplik ve bileşen sınırları
 
-## Önerilen Rust bileşenleri
+İngilizce kanonik, Türkçe eşzamanlı karşılığıdır. Kod, kimlikler, şablonlar ve görev kayıtları İngilizce kalır. [Depo haritası](https://github.com/eylema-dev/devguide/blob/main/docs/tr/repository-map.md) depo sınırlarını tanımlar. Ürün sözleşmeleri dil depolarında, ortak katkı politikası devguide'da, uygulama/şemalar çekirdekte kalır.
 
-Tek Cargo çalışma alanı ve tek yerel ana süreçle başlayın. Bunlar modül sorumluluklarıdır; bağımsız yayımlanan hizmetler oluşturma şartı değildir. Bir crate ancak sınırı çalıştırılabilir testlere ve gerçek bir tüketiciye sahip olduğunda eklenir.
+Tek, bize ait Rust çalışma alanı ve tek yerel native host süreci kullanılır. Modül/crate ancak test edilmiş sınır ve gerçek tüketici için eklenir.
 
-| Planlanan bileşen | Sorumluluğu | İzin verilen doğrudan proje bağımlılıkları |
-|---|---|---|
-| `crates/eylema-contracts` | Sürümlü görev, öneri, yürütme, komut, olay, yetki, bütçe ve hata tipleri | Yok |
-| `crates/eylema-runtime` | Deterministik geçişler, kabul kontrolleri, sınırlı adım yürütme ve etkili iptal | `eylema-contracts` |
-| `crates/eylema-journal` | Sürümlü yerel kayıtlar, ekleme/yeniden oynatma ve açık kurtarma hataları | `eylema-contracts` |
-| `crates/eylema-web` | Asgari HTML arayüzü, sınırlı istek çözümleme ve yanıt/olay sunumu | `eylema-contracts` |
-| `apps/eylema` | Ana giriş noktası, yerel yapılandırma ve runtime, journal, web bileşimi | Yukarıdaki dört bileşen |
-| `eylema-examples/task-console` | Yeniden üretilebilir görev tanımı, test verileri ve tarayıcı rehberi | Uygulamanın açık sözleşmeleri |
+| Bileşen | Sorumluluk |
+|---|---|
+| `crates/eylema-contracts` | Kanonik Rust alan tipleri, sürümlü geçişler, sınırlı EYL iletim kayıtları ve onay içeriği üretimi |
+| `crates/eylema-runtime` | Kapsamlı kabul, deterministik adımlar, yetki, bütçeler, gözlemler ve etkili iptal |
+| `crates/eylema-journal` | Sınırlı EYLJ ekleme/yeniden oynatma, açık kalıcılık ve bozulma hataları |
+| `crates/eylema-platform` | Dar standart host kripto/entropi/senkronizasyon ve native GPU bağları |
+| `crates/eylema-host` | Runtime/journal bileşimi, dayanıklı kurtarma ve yerel hizmet sınırı |
+| `crates/eylema-web` | Yerel tarayıcı arayüzü ve sınırlı sunum/taşıma adaptörleri |
+| `apps/eylema` | Native CLI/hizmet bileşimi ve yapılandırma |
+| `eylema-examples/task-console` | Çekirdek revizyonuna sabit dış tüketici; runtime kodunun kopyası yok |
 
-Görev konsolu örneği, `eylema-examples` içinde çekirdek revizyonuna sabitlenmiş dış tüketicidir; çekirdek çalışma alanının başka bir crate'i değildir. Çekirdek birim/kurtarma örnekleri doğruladıkları uygulamayla birlikte kalır.
+Bağımlılıklar sözleşmelere yönelir. Yürütme, yetki ve kalıcılık host'a aittir. Tarayıcı durumu sunar ve tanımlı GPU yeteneklerini kullanır; günlüğü doğrudan değiştiremez veya native yetki veremez. Tarayıcının kapanması native işi durdurmaz; yeniden açılış snapshot/olayları okur. Rust 1.99.0 ve aarch64-apple-darwin native temel olarak kalır; seçili taşınabilir kütüphaneler wasm32-unknown-unknown'a derlenir. Derleme ve gerçek hedef yürütümü ayrı kanıttır.
 
-```mermaid
-flowchart TD
-    Browser[Tarayıcı: görev arayüzü] --> Host[eylema ana süreç: yerel hizmet]
-    Host --> Web[eylema-web]
-    Host --> Runtime[eylema-runtime]
-    Host --> Journal[eylema-journal]
-    Web --> Contracts[eylema-contracts]
-    Runtime --> Contracts
-    Journal --> Contracts
-```
+## Erişilebilir test envanteri
 
-Bağımlılıklar sözleşmelere doğru yönelir. Runtime tarayıcı, GitHub veya model sağlayıcı entegrasyonlarını içe aktarmaz. Ana süreç kalıcılığı ve yürütmeyi birlikte yönetir; web bileşeni yetki kontrollerini atlayamaz veya günlüğe doğrudan yazamaz. İletim biçimleri aynı sürümlü anlamların adaptörleridir. Gelecekteki tarayıcı/Wasm yürütmesi ayrı destek profili alır; macOS'a bağlı tarayıcı arayüzü runtime'ın Wasm'da çalıştığını kanıtlamaz.
+Bu takma adlar bakımcının mevcut cihazlarını kaydeder; kabul edilmiş runtime HardwareProfile kimlikleri değildir. Ölçülen her HardwareProfile ve WorkloadProfiles için kesin OS, CPU/GPU, SDK/sürücü/tarayıcı sürümleri, iş yükü hash'leri ve kod revizyonu kaydedilir. İki iş yükü olan tek cihaz yine tek fiziksel cihazdır.
 
-Mevcut politika kapsamında kendi Rust üretim kodumuz ve sıfır harici üretim Cargo paketi kullanılır. Rust, tarayıcı, işletim sistemi ve gerekli host bağları açık bağımlılıklar olarak kalır. CI Python'ı uygulama runtime'ının dışındadır. Native Mac hedefi için Rust 1.99.0 ve aarch64-apple-darwin; açıkça taşınabilir kütüphaneler için wasm32-unknown-unknown seçilmiştir. G04 gerçek araç/SDK/tarayıcı envanterini doğrular; G07 Rust kaynağı kabulünden önce gerçek derleme/test kapılarını etkinleştirir. Günlük biçimi, istek kodlaması ve host bağları ayrı incelenmiş uygulama gerektirir.
+| Envanter adı | Sahibinin bildirdiği donanım | İlk rol | Kanıt sınırı |
+|---|---|---|---|
+| `mbp-m4-pro-24` | MacBook Pro, Apple M4 Pro, 24 GB birleşik bellek | Birincil yerel görev konsolu kabulü; sonra CPU/Metal ve tarayıcı WebGPU ölçümleri | Mevcut çekirdek kanıtı bu cihazla sınırlıdır; bu karar değişikliği donanım kabulünü yeniden çalıştırmaz |
+| `mini-m4-24` | Mac mini, Apple M4, 24 GB birleşik bellek | İkinci fiziksel Mac uyumluluğu ve kaynak karşılaştırması | Bu cihazdaki OS/araç/tarayıcı ve bütün Eylema yürütümleri: not_run |
+| `rtx4070ti-super-16-32` | NVIDIA RTX 4070 Ti Super, 16 GB VRAM, 32 GB sistem RAM'i | Sonraki ayrık GPU karşılaştırması ve eğitim fizibilitesi | Linux sahibi tarafından doğrulandı; CPU/dağıtım/kernel doğrulanmadı; sürücü/backend/erişim ve bütün Eylema yürütümleri: not_run |
 
-## Mac host ve taşınabilir kütüphane sınırı
+İki ek makine birincil görev konsolu önizlemesini engellemez. Kabulleri ayrı sınırlı görevdir; envanter satırı Linux/Windows backend'i etkinleştirmez, uzak erişim, kurulum veya eğitim yetkisi vermez. Apple birleşik belleği ile RTX ayrık VRAM/sistem RAM'i ayrı kaydedilir; birbirinin yerine geçen uydurma ortak bütçeye toplanmaz.
 
-İlk deneysel cihaz 24 GB birleşik bellekli tek Apple M4 Pro MacBook Pro’dur; macOS 27.0.1 gözlenmiştir, araç envanteri ve gerçek yürütüm G04’te doğrulanacaktır. Native hizmet/CLI, dayanıklı journal ve sonraki CPU/Metal model işçileri host’a aittir. Tarayıcı aynı cihazda Wasm/WebGPU/WGSL ile render yapar. Wasm’a yalnız incelenmiş taşınabilir kütüphaneler derlenir; dosya sistemi/sunucu host’u native kalır. Hedef seçimi veya çapraz derleme kabul edilmiş yürütüm değildir.
+Önce aynı sürümlü deterministik görev sabit girdilerle ölçülür: soğuk/sıcak başlangıç, görev gecikmesi p95/p99, tepe bellek ve başarılı/hatalı eylem sayısı. GPU işlerinde referans çıktı toleransı, kare süresi dağılımı ve birleşik iş yükü belleği eklenir. Sayısal kalite/kaynak eşikleri başlangıç ölçümünden sonra ve aday karşılaştırmasından önce sabitlenir. Erişilemeyen gözlemler unknown/not_run kalır.
 
-Sonraki Metal/model/orkestratör modülleri yalnız test edilmiş sınır ve gerçek tüketiciyle eklenir. Tarayıcı kapanması native işçiyi durdurmaz; yeniden açılış kayıtlı durum/olaylara bağlanır. Journal varsayılanı macOS Application Support/Eylema’dır; onay dayanıklı yazıdan sonra verilir, normal kayıtlara ham özel eğitim içeriği veya kimlik bilgisi girmez. Linux ve ikinci cihaz kabulü sonraki kapsamdır.
+## Kesinleştirilen görev, depolama ve API kararları
+
+| Konu | Kabul edilen ilk uygulama sözleşmesi |
+|---|---|
+| Anlamın kaynağı | eylema-contracts içindeki bize ait Rust tipleri ve kurucular; HTTP/CLI/tarayıcı adaptörleri aynı anlamı kullanır. OpenAPI/JSON Schema/MCP üretimi sonraki iştir; üretilmiş destek iddiasından önce uyum örnekleri gerekir |
+| Durum ve yetki | Görev/yürütme kimlikleri ayrı; eski revizyon ve yetkisiz etkiler reddedilir; başarı, hata, etkili iptal ve belirsiz sonuç ayrıdır |
+| Kanonik onay | Mevcut EYL codec v1 ve canonical_approval_payload tipli görev/öneri/eylem alanlarını bağlar; standart host SHA-256 bu baytları özetler. Map/set sırası deterministiktir; taşıma istek/korelasyon kimlikleri dışarıdadır; örtük metin normalleştirme veya float kodlama yoktur |
+| Kalıcılık | Host'un sahip olduğu yerel dizinde mevcut EYLJ v1 journal, intent/commit kayıtları ve dayanıklı alındı; bozuk/yarım/uyumsuz girdi sessiz tamir veya migration olmadan reddedilir |
+| Tekrar saklama | Tutulan kabul anahtarları/sonuçlar doğrulanmış journal replay sonrasında korunur; otomatik silme, döndürme veya süre aşımı eklenmez. Sınırlı kapasite dolunca yinelenmiş iş kabul etmek yerine açık hata verilir |
+| Yeniden başlatma | Doğrulanmış kimlik/sonuç/etkiler korunur. Bitmemiş yürütme OutcomeUnknown olur; eski oturumlar emekliye ayrılır, yeni güvenilir kayıt gerekir. Belirsiz dış etkiler sessizce tekrarlanmaz |
+| Uyumluluk | Mevcut runtime 0.1.0, EYL v1 ve EYLJ v1 değişmez. Gelecekteki uyumsuz değişiklikler yeni sürüm ve açık migration/ret testleri gerektirir |
+
+Uygulama ayrıntıları ve çalıştırılmış kapsam: [tipli sözleşmeler](https://github.com/eylema-dev/eylema/blob/main/docs/tr/typed-contracts.md), [kanonik codec/platform](https://github.com/eylema-dev/eylema/blob/main/docs/tr/codec-platform.md), [journal](https://github.com/eylema-dev/eylema/blob/main/docs/tr/local-journal.md), [kurtarma](https://github.com/eylema-dev/eylema/blob/main/docs/tr/runtime-recovery.md). Geniş [API kataloğu](api-reference.md) önerilen işlemler içerir; bu karar her rotanın uygulandığını ilan etmez.
+
+## Yerel yetki ve açık platform bağımlılıkları
+
+İlk hizmet tek kullanıcılıdır ve yalnız loopback üzerinde çalışır. Kapsamlı oturumlar, Host/Origin ve CSRF kontrolleri, sınırlı istekler ve host tarafından doğrulanmış özne/onay kayıtları zorunludur. Model veya iddia edilen insan alanı yetki oluşturamaz. Zaten yetkilendirilmiş rutin eylemler tekrar onay istemez; belirlenmiş kontrol noktaları, yönetişim ve durdurma izinleri uygulanmaya devam eder. Public/LAN erişimi, uzak kimlik ve TLS sonlandırma ayrı kabul edilmiş tasarım ister; yerel prototip uzak/TLS desteği iddia etmez.
+
+Sıfır üçüncü taraf üretim Cargo paketi politikası değişmez. macOS CommonCrypto/Security/libSystem standart hash, entropi ve senkronizasyon hizmetlerini dar, incelenmiş bağlarla sağlar; kendi kodumuz kriptografi uygulamaz. Metal/SDK bağları ve Metal shader kaynakları, asgari tarayıcı host JavaScript'i, WebAssembly/WebCrypto, WebGPU ve WGSL açık platform girdileridir. Native Metal ile tarayıcı WebGPU ayrı cihaz bağlamlarıdır; ortak GPU buffer veya evrensel zero-copy garantisi yoktur. Python/Unsloth ve paketleme dönüştürücüleri ayrı sabitlenmiş geliştirme/eğitim envanterlerinde kalır.
 
 ## İlk tarayıcı gösteriminin kabul koşulları
-
-[API sözleşmesine](api-reference.md) göre görev kimliği ve yürütme kimliği ayrıdır. Görev çalıştırılmadan önce var olabilir. Tekrar deneme veya iptal, etkilediği yürütmeyi belirtmelidir. Kaydetme, kabul edilen değişikliklerin kalıcılık özelliğidir; ekran tasarımıyla icat edilen yeni bir API işlemi değildir.
 
 | ID | Senaryo | Gereken kanıt | Yol haritası |
 |---|---|---|---|
@@ -64,19 +77,10 @@ Sonraki Metal/model/orkestratör modülleri yalnız test edilmiş sınır ve ger
 | F6 | Yazmayı kes veya uyumsuz kayıtla karşılaş | Tanımlı kurtarma ya da açık hata; uydurma tamamlanma ve sessiz veri kaybı yok | M2 / EYL-005 |
 | F7 | Limit aş veya erişilemeyen yetenekle karşılaş | Sınırlı girdi/kuyruk/iş, açık hatalar ve süre dolduktan sonra doğru sonuç bildirimi | M1–M2 / EYL-003, EYL-004, EYL-006 |
 
-Depolama sözleşmesi yazının ne zaman kalıcı olduğunu ve günlük hatasının alındı yanıtını nasıl etkilediğini belirtmelidir. Durdurma isteği başarı kanıtı, sürenin dolması da işin durduğunun kanıtı değildir. Yeniden başlatma, sonucu belirsiz dış etkileri sessizce tekrar yürütmemelidir. İlk iş yükünde dış etki yoktur; kayıtlar yine bu ayrımı korumalıdır.
+F1–F7 birincil cihazda aynı aday revizyonunda gösterilmeli; gerçek kişi doğrulaması güvenilir host test örneklerinden ayrılmalıdır. İptal alındısı etkili durma, süre sınırı da fiziksel sonlanma değildir. İlk üründe dış görev etkisi yoktur; olumsuz örnekler yine kısmi/belirsiz sonuçları doğru korur. Bu kapsam kararı hiçbir kontrolü kaldırmaz.
 
-Önce Rust durum makinesi ve kurtarma testlerini M4 Pro Mac üzerinde native çalıştırın, ardından adlandırılmış tarayıcıda bu hizmete bağlı arayüzü gösterin. Wasm derlemesini ve varsa gerçek Wasm yürütmesini ayrı raporlayın. M1/M2; WebGPU, model çıkarımı, eğitim veya otonom geliştirme desteği kanıtlamaz.
+## Lisans ve ilk öğrenme deneyi
 
-## Uygulamadan önce verilecek kararlar
+Kendi kaynak kodumuz ve belgelerimiz bakımcının seçtiği Apache-2.0 lisansını kullanır. [Lisans ve katkı kapsamına](https://github.com/eylema-dev/devguide/blob/main/docs/tr/licensing.md) bakın. Üçüncü taraf model/veri koşulları bağımsızdır.
 
-| Karar | Öneri veya bilinen sınır | Gereken sonuç |
-|---|---|---|
-| İlk ürün sonucu | Yukarıdaki görev çekirdeği ve web akışı | Bakımcı seçti; bu hedefin değişikliklerini açıkça kaydet |
-| Çalışma alanı sınırları ve iş yükü | Bileşen tablosu ve sınırlı deterministik adımlar | EYL-003 öncesi öneriyi incele; dizin adları yayımlanmış paket değildir |
-| Toolchain ve ilk cihazlar | Tek M4 Pro/24 GB fiziksel Mac ve ayrı bağlı native/tarayıcı iş yükü profilleri | G04’te Rust 1.99.0/hedefleri ve gözlenen macOS/SDK/tarayıcı envanterini doğrula; bu cihazda iş yüklerini ölç; Linux ve ikinci fiziksel cihaz ertelenmiştir |
-| Kalıcılık ve kurtarma | Açık kalıcılık anlamlarıyla yerel ekleme/yeniden oynatma günlüğü | EYL-005'te biçim/sürüm, yarım yazı tespiti, tekrar/idempotency saklama süresi ve sürmekte olan işin kurtarılmasını belirle |
-| İlk ağ erişimi | Yalnız loopback üzerinden yerel prototip önerisi | EYL-006 öncesi yerel oturum, Host/Origin, CSRF, istek limitleri ve yetki kontrollerini zorunlu tut; uzak kullanım ayrı kimlik/TLS tasarımı ister |
-| Kamuya açık dağıtım koşulları | Lisans seçimi bekliyor | EYL-001'i bakımcı kararlaştırır; kaynak görünürlüğü yeniden kullanım koşullarını belirlemez |
-
-Sonraki uygulama işi, bileşen önerisi ve gerekli ortam kararları kabul edildikten sonra EYL-003'tür. EYL-004'ün ihtiyaç duyduğu en küçük çalışma alanını kurun, gerçek Rust CI'ını bağlayın ve aynı değişiklikte yalnız dokümantasyona izin veren kaynak engelini değiştirin. EYL-005 ve EYL-006, kayıtlı görevle ilk tarayıcı akışını tamamlar. Sonraki her yetenek için ayrı kabul gerekir.
+Mevcut Qwen3-0.6B seçimi aday olarak kalır; yürütüm/destek iddiası değildir. Model kabulünden önce kesin işleç/varlıkları sabitleyin ve seçilen donanımda deterministik başlangıcı ölçün. İlk öğrenme deneyini tek izinli görev, insan düzeltmesi, sabitlenmiş tarif ve sonlu bütçe içinde bağımsız ayrılmış değerlendirmeyle sınırlayın. [Öğrenme protokolü](learning-and-training.md) toplama/eğitimden önce izin, saklama ve kaynak kararlarını gerektirir. Bu kararların yayımlanması yeni veri toplamayı veya eğitim çalıştırmayı yetkilendirmez.

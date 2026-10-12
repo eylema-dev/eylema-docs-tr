@@ -15,7 +15,7 @@
 
 ## Depo sınırları
 
-Çalışma zamanı kaynakları ve makine şemaları [eylema](https://github.com/eylema-dev/eylema) içinde; katkı politikası ve kalite kapıları [devguide](https://github.com/eylema-dev/devguide) içindedir. [Depo haritası](https://github.com/eylema-dev/devguide/blob/main/docs/tr/repository-map.md) her sorumluluğu tanımlar. Deponun açık olması, bekleyen lisans kararını çözmez.
+Çalışma zamanı kaynakları ve makine şemaları [eylema](https://github.com/eylema-dev/eylema) içinde; katkı politikası ve kalite kapıları [devguide](https://github.com/eylema-dev/devguide) içindedir. [Depo haritası](https://github.com/eylema-dev/devguide/blob/main/docs/tr/repository-map.md) her sorumluluğu tanımlar. Kendi kaynak kodumuz ve belgelerimiz [Apache-2.0](LICENSE) lisanslıdır. Ayrı belirtilen üçüncü taraf içerikleri, model ağırlıkları ve veri kümeleri kendi koşullarını korur.
 
 Düzenlemeden önce [katkı rehberini](CONTRIBUTING.tr.md) okuyun. İngilizce asıl ile devguide içindeki sabitlenmiş depo kümesini birlikte güncelleyin. Yerel parmak izleri incelenen baytları kaydeder; depo kümesi kontrolü iki dili, API tanımlayıcılarını, yol haritası kimliklerini ve depolar arası bağlantıları karşılaştırır. Anlamsal çeviri doğruluğunu kanıtlamaz.
 

@@ -1,6 +1,6 @@
 ---
 docs_language: tr
-source_revision: 0.2.0
+source_revision: 0.3.0
 status: design
 canonical_language: en
 ---
@@ -13,7 +13,7 @@ canonical_language: en
 
 İnsan arayüzleri, geliştirme ajanları, yerel modeller ve deterministik Rust becerileri aynı işlemleri ve yetkilendirme kurallarını kullanır. Sağlayıcı kimliği, model yeteneği veya bir insanın adı kendi başına izin oluşturmaz. Denetleyici doğrulanmış özneyi, kaynak kapsamını, kabul edilmiş politika revizyonunu ve gereken onayı belirler. `authorization_ref` gibi bir metin kaydın bulunmasını sağlar; yetki kanıtı değildir.
 
-Kendi geliştirdiğimiz sürümlü tip tanımları, makine sözleşmesinin esas kaynağı olacaktır. Önerilen üretim süreci bu tanımlardan OpenAPI, JSON Schema, MCP araç açıklamaları ve Rust SDK üretir. Adaptörler yetkiyi genişletemez, varsayılan değer uyduramaz veya başarısızlığı başarıya çeviremez. Bu üretim tasarımı üçüncü taraf üretim bağımlılığı getirmez. Mevcut şemalar seçili teslim nesnelerini kapsar; bu API'nin tamamını tanımlamaz.
+`eylema-contracts` içindeki kendi Rust tiplerimiz yürütülebilir anlamın seçilmiş kanonik kaynağıdır. Mevcut istemciler bu sürümlü sözleşmeleri kullanır. Gelecekteki üreticiler aynı tanımlardan OpenAPI, JSON Schema, MCP araç açıklamaları ve Rust SDK üretecektir; üretilmiş yüzey desteği henüz teslim edilmemiştir. Adaptörler yetkiyi genişletemez, varsayılan değer uyduramaz veya başarısızlığı başarıya çeviremez. Bu üretim tasarımı üçüncü taraf üretim bağımlılığı getirmez. Mevcut şemalar seçili teslim nesnelerini kapsar; bu API'nin tamamını tanımlamaz.
 
 İzinler işlem bazında birleşir: modeli incelemek onu eğitme; sürüm önermek onu etkinleştirme yetkisi vermez. Bir kurulum aynı özneye birden fazla izin tanımlarken belirli geçişlerde ayrı onay isteyebilir. Tarayıcı istemcisi isteğine `native_macos` yazarak yerel dosya sistemi, süreç veya GPU ayrıcalıkları kazanamaz.
 
@@ -21,9 +21,11 @@ Kendi geliştirdiğimiz sürümlü tip tanımları, makine sözleşmesinin esas 
 
 Deneysel sözleşme tek M4 Pro/24 GB Mac üzerinde `native_macos` ve aynı cihazda `browser` kullanır. `native_linux` ve ikinci cihaz kabulü sonraki kapsamdır. Metadata tablosu izin verilen bağlamları belirtir; `listCapabilities` yalnız uygulanmış ve kabul edilmiş işlem/backend'leri bildirmelidir. CPU `native_cpu` / `none`, Metal `native_gpu` / `metal`, tarayıcı CPU `wasm_cpu` / `none`, WebGPU `webgpu` / `webgpu` kullanır. Her çift backend / `gpu_api` anlamındadır.
 
-`HardwareProfile` fiziksel cihazı; `WorkloadProfile` ise `target`, `backend`, `gpu_api`, `workload_ref`, `workload_sha256` ve `environment_ref` alanlarını kaydeder. Model-set `schema_version` 0.2.0, `workload_profiles` gerektirir; atama/kanıtlar `hardware_profile_id` ve `workload_profile_id` taşır. Tüketici kabul öncesi iki referansı çözer, yinelenmiş/kopuk kimlikleri reddeder ve fiziksel bağların eşleşmesini doğrular. Şema geçerliliği veya opak referans yürütüm kanıtı değildir. Kökteki model-set 0.1.0 sözleşmesi tarihsel kalır; yeni Mac manifestleri `ai-team-protocol/v0.2/model-set-release.schema.json` kullanır. `runtime_protocol_version` manifest revizyonundan bağımsız olarak 0.1.0 kalır. Belge kaynak revizyonu 0.2.0'dır; işlem yolları /v0.1 olarak kalır.
+`HardwareProfile` fiziksel cihazı; `WorkloadProfile` ise `target`, `backend`, `gpu_api`, `workload_ref`, `workload_sha256` ve `environment_ref` alanlarını kaydeder. Model-set `schema_version` 0.2.0, `workload_profiles` gerektirir; atama/kanıtlar `hardware_profile_id` ve `workload_profile_id` taşır. Tüketici kabul öncesi iki referansı çözer, yinelenmiş/kopuk kimlikleri reddeder ve fiziksel bağların eşleşmesini doğrular. Şema geçerliliği veya opak referans yürütüm kanıtı değildir. Kökteki model-set 0.1.0 sözleşmesi tarihsel kalır; yeni Mac manifestleri `ai-team-protocol/v0.2/model-set-release.schema.json` kullanır. `runtime_protocol_version` manifest revizyonundan bağımsız olarak 0.1.0 kalır. Belge kaynak revizyonu 0.3.0'dır; işlem yolları /v0.1 olarak kalır.
 
-Native hizmet/CLI/model işleri ve tarayıcı render yetkileri ayrıdır. Loopback hizmet yerel oturum, Host/Origin ve CSRF kontrolleri, sınırlı girdi/süre ve açık hatalar gerektirir. Tarayıcı kapanınca native yürütüm sürer; yeniden açılış snapshot/olayları okur. Kayıt onayı Eylema Application Support dizinindeki dayanıklı journal yazımından sonra verilir. Model eylem önerir; yetki veremez. Runtime kabul kapısı geçilene kadar bunların tamamı uygulanmamış sözleşmedir.
+Native hizmet/CLI/model işleri ve tarayıcı render yetkileri ayrıdır. Loopback hizmet yerel oturum, Host/Origin ve CSRF kontrolleri, sınırlı girdi/süre ve açık hatalar gerektirir. Tarayıcı kapanınca native yürütüm sürer; yeniden açılış snapshot/olayları okur. Kayıt onayı Eylema Application Support dizinindeki dayanıklı journal yazımından sonra verilir. Model eylem önerir; yetki veremez. [Yerel HTTP](https://github.com/eylema-dev/eylema/blob/main/docs/tr/local-http.md) ve [kurtarma](https://github.com/eylema-dev/eylema/blob/main/docs/tr/runtime-recovery.md) notları uygulanmış alt kümeyi tanımlar. Gerçek kişi doğrulaması ve kalan katalog ayrı kabul kapılarını korur.
+
+Kabul edilen ilk kurulum tek kullanıcılıdır ve yalnız loopback üzerindedir. [Mevcut donanım envanteri](project-structure.md#erişilebilir-test-envanteri), kabul edilmiş hedef/backend enum’larını genişletmeden veya uzak erişime izin vermeden Mac mini ve Linux RTX karşılaştırma adaylarını ekler. Kendi Rust anlamları, EYL/EYLJ uyumluluğu ve sınırlı tekrar saklama [kesinleştirilmiş uygulama kararlarını](project-structure.md#kesinleştirilen-görev-depolama-ve-api-kararları) izler.
 
 ## Denetim mekanizmaları
 
@@ -89,7 +91,7 @@ Eğitim, değerlendirme, politika etkinleştirme ve sürüm geçişi, beyan edil
 
 ## Onay ve yürütme
 
-Onay; `proposal_id`, `plan_revision`, standartlaştırılmış `payload_sha256`, `state_revision`, `policy_revision`, `resource_scope` ve `expires_at` alanlarına bağlanır. Birlikte çalışabilir onay uygulanmadan önce standart serileştirme ve hash kuralları sabitlenmelidir. Karar kaydı doğrulanmış özneyi belirtir; doğrulanmış insan onayı gerektiğinde kendiliğinden yazılmış `human` alanı yeterli olmaz.
+Onay; `proposal_id`, `plan_revision`, standartlaştırılmış `payload_sha256`, `state_revision`, `policy_revision`, `resource_scope` ve `expires_at` alanlarına bağlanır. Yerel uygulama [codec sözleşmesindeki](https://github.com/eylema-dev/eylema/blob/main/docs/tr/codec-platform.md) EYL codec v1 kanonik onay baytlarını ve standart host SHA-256 kullanır; taşıma kimlikleri dışlanırken eylem sırası ve etki içeriği bağlı kalır. Diğer adaptörler birlikte çalışabilirlik iddiasından önce aynı baytları üretmelidir. Karar kaydı doğrulanmış özneyi belirtir; doğrulanmış insan onayı gerektiğinde kendiliğinden yazılmış `human` alanı yeterli olmaz.
 
 Yürütmede denetleyici izin, geri çekilme, süre aşımı, bütçe, içerik ve mevcut önkoşulları yeniden kontrol eder. Değişmiş plan veya önemli durum değişikliği bağlantıyı bozduğunda yeni karar gerekir. Desteklenen kaynak adaptörleri beklenen revizyona koşullu yazma yapar. Böyle garantileri olmayan dış dünyada kalan yarış koşulu ve gözlenen sonuç açıklanır; atomiklik iddia edilmez.
 
