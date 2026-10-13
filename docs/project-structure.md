@@ -1,6 +1,6 @@
 # Proje yapısı ve kabul edilen ilk ürün kararları
 
-Sürüm **0.4.0**, 13 Ekim 2026. [İngilizce kaynak](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/project-structure.md).
+Sürüm **0.5.0**, 13 Ekim 2026. [İngilizce kaynak](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/project-structure.md).
 
 Bakımcı 12 Ekim 2026 tarihinde 1, 2, 4, 5, 6 ve 8 numaralı önerileri kabul etti, aşağıdaki üç cihazlık envanteri bildirdi ve Apache-2.0 seçti. Bu kararlar güncel ürün yönünü günceller. Tarihsel Goal kayıtlarını yeniden yazmaz; kalan runtime, model veya donanım kabulünün geçtiğini iddia etmez.
 
@@ -15,6 +15,8 @@ Platformun kullanıcı akışı: döngü ile eylem/gözlem sözleşmelerini tan�
 Kullanılabilir görev konsolu önizlemesi GPU, model veya eğitimi beklemeden M2'de değerlendirilir. Kabul edilmiş çekirdek/örnek temelinden sonra ve isteğe bağlı öğrenme çalışmasından önce küçük bir gerçek ihtiyaçtan PR'a kanıt gelir. Tam otonom geliştirme/sağlayıcı kabulü ve bütün deneysel sürüm ayrı M7/G44/G45 kapılarını korur. Küçük 3B yerleştirme ortamı, sonraki yeteneklerin referans uygulamasıdır; ilk kullanıcının görev konsolu için ön koşul değildir.
 
 Çekirdekte Rust görev/runtime/journal/host/web bileşenleri ve CLI zaten vardır. [Güncel çekirdek durumuna](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) ve revizyona bağlı kanıtlarına bakın. Gerçek kişi doğrulaması açık sınırlama olarak kalır: varsayılan insan olmayan oturumun FORBIDDEN alması, insan yetkisiyle etkili durdurma senaryosunu kanıtlamaz. Bu karar F3'ü kaldırmaz veya kontrolünün zayıflatılmasına izin vermez.
+
+Kabul edilen harness revizyonu dokuz rol sözleşmesini, ayrı STT/TTS/görüntü profillerini, alan model havuzlarını, projeye özel/açık ekosistem sınırlarını ve kendi Rust RAG hattımızı ekler. [Rol tablosu ve örnekler](architecture.md#rust-harness-model-rolleri-ve-alana-göre-seçim) ile [güncel aksiyon planına](https://github.com/eylema-dev/devguide/blob/main/docs/tr/platform-action-plan.md) bakın. İlk uygulama parçası yeniden kullanılabilir döngü/rol kaydıdır; native inference, araç yürütme ve tam iş kabulü ayrı kartlarını korur.
 
 ## Dil, sahiplik ve bileşen sınırları
 
@@ -88,3 +90,5 @@ F1–F7 birincil cihazda aynı aday revizyonunda gösterilmeli; gerçek kişi do
 Kendi kaynak kodumuz ve belgelerimiz bakımcının seçtiği Apache-2.0 lisansını kullanır. [Lisans ve katkı kapsamına](https://github.com/eylema-dev/devguide/blob/main/docs/tr/licensing.md) bakın. Üçüncü taraf model/veri koşulları bağımsızdır.
 
 Mevcut Qwen3-0.6B seçimi aday olarak kalır; yürütüm/destek iddiası değildir. Model kabulünden önce kesin işleç/varlıkları sabitleyin ve seçilen donanımda deterministik başlangıcı ölçün. İlk öğrenme deneyini tek izinli görev, insan düzeltmesi, sabitlenmiş tarif ve sonlu bütçe içinde bağımsız ayrılmış değerlendirmeyle sınırlayın. [Öğrenme protokolü](learning-and-training.md) toplama/eğitimden önce izin, saklama ve kaynak kararlarını gerektirir. Bu kararların yayımlanması yeni veri toplamayı veya eğitim çalıştırmayı yetkilendirmez.
+
+Güncel harness revizyonu modele özel native Rust LoRA/QLoRA iyileştirmesini, router/skill sözleşmelerini ve kalibre kapasite/yatırım planlamasını G74–G86'ya bağlar. Projeye özel türevler özel kalır; isteğe bağlı harici büyük modeller açık açıklama/çağrı yetkisi gerektirir. İlk yerel metin/RAG kanıtı G72 isteğe bağlı modalitelerden önce ilerler; gerçek insan kaydı/durdurma G73'tedir.
