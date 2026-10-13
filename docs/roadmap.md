@@ -1,6 +1,6 @@
 # Eylema ilk sürüm yol haritası
 
-Sürüm **0.4.0**, 12 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: M2 aşamasında daha erken kullanılabilir görev konsolu önizlemesiyle **v0.1.0 deneysel**. Aşamalar teslim tarihi sözü değil, kabul kapısıdır. Çekirdekte görev/runtime/journal/hizmet/CLI/tarayıcı çalışmaları ve sınırlı GPU bileşenleri vardır; [çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) her uygulamanın kapsamını belirtir. Tam insan kimliği doğrulanmış akış, model, öğrenme ve otonom geliştirme kabulü ayrıdır.
+Sürüm **0.5.0**, 13 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: M2 aşamasında daha erken kullanılabilir görev konsolu önizlemesiyle **v0.1.0 deneysel**. Aşamalar teslim tarihi sözü değil, kabul kapısıdır. Çekirdekte görev/runtime/journal/hizmet/CLI/tarayıcı çalışmaları ve sınırlı GPU bileşenleri vardır; [çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) her uygulamanın kapsamını belirtir. Tam insan kimliği doğrulanmış akış, model, öğrenme ve otonom geliştirme kabulü ayrıdır.
 
 ## Seçilen ilk çalışan uygulama
 
@@ -43,6 +43,23 @@ Bu EYL kimlikleri plan referansı olarak kalır. Kabul edilmiş G00–G45/W01 ka
 G03 bu sözleşmeleri eşler; G04 gerçek Rust/macOS/SDK/tarayıcı ortamını doğrular. G07 uygulama CI’ıyla runtime kaynağını etkinleştirir. F1–F7, M1/M2 akışıdır; G17 dış örneği kabul edilmiş çekirdeğe karşı kanıtlar. Kabul edilmiş aksiyon planı bu temelden sonra, GPU işlerinden önce G38–G43 geliştirme orkestrasyonuna izin verir; M7 sürüm kapısı yine M6’ya bağlıdır. G18 sayısal kaynak limitleri kabulünden önce iş yüklerini ölçer. G27 tensör/yükleyici/model yürütümünden önce model sözleşmesini sabitler; G35/G36 yerel eğitim ve kendi motorumuzda export’u ayrı kanıtlar. G45 paketinden önce G44 bu Mac’te tam on iki adımlı akışı çalıştırır. W01 doğru website içeriğini hazırlayabilir; yayın ayrı yetki ve eşleşen canlı kanıt gerektirir.
 
 Eklenen model-set şeması 0.2.0’dır; runtime/NeedSpec 0.1.0 kalır. Sentetik şema örneği, belge CI’ı, başarılı derleme, GPU yürütümü, eğitilmiş model kalitesi ve sürüm kabulü ayrı kanıtlardır. Bu yol haritası runtime, GPU veya eğitim sonucu sağlamaz.
+
+## Agentic platform tasarım revizyonu — 13 Ekim 2026
+
+Bakımcı Eylema’yı işbirlikli yerel model döngülerini kurma, uyumlu modelleri değiştirme ve izinli eğitim verisini toplama platformu olarak tanımlar. [Mimari](architecture.md#işbirlikli-agentic-döngü-ve-sabit-platform-sözleşmeleri) model adlarını sabit sözleşmelerin arkasındaki değiştirilebilir rollere dönüştürür. Mevcut konsol yürütme temelidir. Aşağıdaki sıra önerilen uygulama ayrımıdır; tarihsel Goal kartlarını değiştirmez, işi etkinleştirmez veya mevcut kabulü tamamlanmış saymaz.
+
+| Sıra | Platform teslimi | İlerlemeden önce kabul | Dayandığı mevcut çalışma |
+|---|---|---|---|
+| 1 | Döngü tanımı, rol arayüzleri ve model/adaptör kaydı | İki farklı döngü tanımı aynı platform sözleşmelerini kullanır; uyumsuz eylem, birim ve ön işleme profilleri reddedilir | G08–G17, G27, G38–G39 |
+| 2 | Gerçek durumu Rust ile uzlaştıran XState iş akışı adaptörü | Önce bağımlılık/profil istisnası incelenir; sınırlı döngü, çökme/tekrar oynatma, yinelenen etki, durdurma ve tarayıcı kapanması test edilir | G10–G16, G21 |
+| 3 | Qwen planlama, yerel karar politikası ve seçilebilir MiniCPM algısı | Kesin yerel artifact/backend kabul edilir; tam döngü M4’te deterministik ve rol ablasyonu başlangıçlarıyla kıyaslanır | G23–G32; yeni algı operatörü/profili çalışması |
+| 4 | Karar kanıtı ve bölüm/veri kümesi oluşturucu | İncelenebilir açıklama, izin/maskeleme, düzeltme, köken, ayrılmış bölümleme ve izin geri alma testleri | G12–G13, G18, G33–G34 |
+| 5 | Model değiştirme ve iyileştirme döngüsü | İki uyumlu politika güvenle değiştirilir; izinli bölümlerden aday eğitilir, ayrı değerlendirilir, canary uygulanır ve doğru etki geçmişiyle geri alınır | G35–G37 ve model atama sözleşmeleri |
+| 6 | Yeniden kullanılabilir platform kabulü | Yerleştirme ve belge-kanıt döngüleri çalışır; model değişimi platformu yeniden yazmak yerine atama değişikliği gerektirir; birleşik kaynak ve veri export’u doğrulanır | Yukarıdaki kapılardan sonra revize edilmiş tam ürün kabulü |
+
+XState önerilen, görünür bir yerel koordinasyon bağımlılığıdır; JavaScript runtime, derleme araçları ve süreç kapsamı uygulamadan önce envantere girmelidir. Bu belge gizli çıkarım backend’ine veya model indirmeye izin vermez. MiniCPM, Qwen ve göreve özgü politikalar destek profili sözleşmelerini geçmelidir; bir model ailesinin desteği evrensel değiştirilebilirlik değildir.
+
+Uygulama kartları şema/sürümü, sahipliği, sayısal kabul eşiklerini, sonlu bütçeyi ve bağımlılıkları sabitlemelidir. Rol kaydı ve yürütme sözleşmeleri core’a, model manifestleri models’a, kıyaslar evals’a, kürasyonlu veri/tarifler training’e aittir; politika ve bütünleşme pin’leri devguide’da kalır. Önceki Goal’lerin kabul kanıtlarını koruyun; yeni kapsam kabul edildiğinde kalan kartları açıkça revize edin. G40’ın çözülmemiş sağlayıcı kabulü bu tasarımla atlanmaz; mevcut onarım/çağrı limitleri değişmez. Burada yeni Goal numarası, runtime kabulü veya eğitim başarısı iddia edilmez.
 
 ## v0.1.0 sürüm kontrol listesi
 
