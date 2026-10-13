@@ -1,6 +1,6 @@
 # Eylema ilk sürüm yol haritası
 
-Sürüm **0.5.0**, 13 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: M2 aşamasında daha erken kullanılabilir görev konsolu önizlemesiyle **v0.1.0 deneysel**. Aşamalar teslim tarihi sözü değil, kabul kapısıdır. Çekirdekte görev/runtime/journal/hizmet/CLI/tarayıcı çalışmaları ve sınırlı GPU bileşenleri vardır; [çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) her uygulamanın kapsamını belirtir. Tam insan kimliği doğrulanmış akış, model, öğrenme ve otonom geliştirme kabulü ayrıdır.
+Sürüm **0.6.0**, 13 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: M2 aşamasında daha erken kullanılabilir görev konsolu önizlemesiyle **v0.1.0 deneysel**. Aşamalar teslim tarihi sözü değil, kabul kapısıdır. Çekirdekte görev/runtime/journal/hizmet/CLI/tarayıcı çalışmaları ve sınırlı GPU bileşenleri vardır; [çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) her uygulamanın kapsamını belirtir. Tam insan kimliği doğrulanmış akış, model, öğrenme ve otonom geliştirme kabulü ayrıdır.
 
 ## Seçilen ilk çalışan uygulama
 
@@ -44,22 +44,23 @@ G03 bu sözleşmeleri eşler; G04 gerçek Rust/macOS/SDK/tarayıcı ortamını d
 
 Eklenen model-set şeması 0.2.0’dır; runtime/NeedSpec 0.1.0 kalır. Sentetik şema örneği, belge CI’ı, başarılı derleme, GPU yürütümü, eğitilmiş model kalitesi ve sürüm kabulü ayrı kanıtlardır. Bu yol haritası runtime, GPU veya eğitim sonucu sağlamaz.
 
-## Agentic platform tasarım revizyonu — 13 Ekim 2026
+## Kabul edilen Rust harness Goal revizyonu — 13 Ekim 2026
 
-Bakımcı Eylema’yı işbirlikli yerel model döngülerini kurma, uyumlu modelleri değiştirme ve izinli eğitim verisini toplama platformu olarak tanımlar. [Mimari](architecture.md#işbirlikli-agentic-döngü-ve-sabit-platform-sözleşmeleri) model adlarını sabit sözleşmelerin arkasındaki değiştirilebilir rollere dönüştürür. Mevcut konsol yürütme temelidir. Aşağıdaki sıra önerilen uygulama ayrımıdır; tarihsel Goal kartlarını değiştirmez, işi etkinleştirmez veya mevcut kabulü tamamlanmış saymaz.
+Bakımcı dokuz model rolünü, isteğe bağlı açık dış büyük model atamalarını ve yerel açık ağırlık inference için kendi Rust motorumuzu birleştiren harness’ı kabul etti. [Güncel aksiyon planı](https://github.com/eylema-dev/devguide/blob/main/docs/tr/platform-action-plan.md) ve [güncel kartlar](https://github.com/eylema-dev/devguide/blob/main/records/platform-goal-plan.json) yalnız gelecek yürütme önerilerini günceller. Kabul edilen yirmi dört özgün Goal kaydı değişmez; kalan yirmi üç özgün kart revize edilir, G46–G86 sınırlı platform parçaları ekler. Bunlar planlandı, tamamlanmadı. G40 mevcut gizlilik/host/çağrı/onarım sınırlarıyla engelli kalır; yeni hak verilmez.
 
-| Sıra | Platform teslimi | İlerlemeden önce kabul | Dayandığı mevcut çalışma |
-|---|---|---|---|
-| 1 | Döngü tanımı, rol arayüzleri ve model/adaptör kaydı | İki farklı döngü tanımı aynı platform sözleşmelerini kullanır; uyumsuz eylem, birim ve ön işleme profilleri reddedilir | G08–G17, G27, G38–G39 |
-| 2 | Gerçek durumu Rust ile uzlaştıran XState iş akışı adaptörü | Önce bağımlılık/profil istisnası incelenir; sınırlı döngü, çökme/tekrar oynatma, yinelenen etki, durdurma ve tarayıcı kapanması test edilir | G10–G16, G21 |
-| 3 | Qwen planlama, yerel karar politikası ve seçilebilir MiniCPM algısı | Kesin yerel artifact/backend kabul edilir; tam döngü M4’te deterministik ve rol ablasyonu başlangıçlarıyla kıyaslanır | G23–G32; yeni algı operatörü/profili çalışması |
-| 4 | Karar kanıtı ve bölüm/veri kümesi oluşturucu | İncelenebilir açıklama, izin/maskeleme, düzeltme, köken, ayrılmış bölümleme ve izin geri alma testleri | G12–G13, G18, G33–G34 |
-| 5 | Model değiştirme ve iyileştirme döngüsü | İki uyumlu politika güvenle değiştirilir; izinli bölümlerden aday eğitilir, ayrı değerlendirilir, canary uygulanır ve doğru etki geçmişiyle geri alınır | G35–G37 ve model atama sözleşmeleri |
-| 6 | Yeniden kullanılabilir platform kabulü | Yerleştirme ve belge-kanıt döngüleri çalışır; model değişimi platformu yeniden yazmak yerine atama değişikliği gerektirir; birleşik kaynak ve veri export’u doğrulanır | Yukarıdaki kapılardan sonra revize edilmiş tam ürün kabulü |
+| Sıra | Teslim | Gerekli kanıt |
+|---|---|---|
+| Temel | G46, G63, G54, G50: döngü/rol/model sözleşmesi, proje sınırı, türlü araç ve karar kanıtı | İki sözleşme tüketicisi; uyumsuz profil/yetki/veri çıkışı reddi, gerçek kendi araçlarımız, tam etki/kanıt geçmişi |
+| Model profilleri | G27, G56, G49, G59, G67: dil, karar, görüntü, ayrı STT/TTS ve embedding | Tam artifact/operatör/hak/ön işleme/çıktı anlamı; alan ve EN/TR değerlendirme tanımları |
+| Kendi inference motorumuz | Mevcut G23–G31 ve G52–G53, G57–G58, G60–G62, G68–G69 | Önce CPU referansı, sonra gerçek M4 Metal; birleşik yükte iş kalitesi, hassasiyet, gecikme/throughput/bellek ve etkili durdurma |
+| Birleşim | G47–G48, G66, G55, G32, G70–G71 | İncelenen yalnız XState koordinasyon profili; sınırlı alt akış, açık dış rol sözleşmesi, yerel iş ve projeye bağlı kaynaklı RAG |
+| Öğrenme/ekosistem | G33–G37, G64–G65 | İzinli episode/türev, bölme/geri çekme, aday eğitimi ve kendi Rust kabulümüz, incelenen paylaşım paketi ve uyumlu içe alma |
+| Erken metin kanıtı | G73, G74, G75, G72 | Gerçek insan kaydı/durdurma, türlü skill/router ve özel yerel EN/TR kaynaklı rapor; görüntü/ses/dünya önkoşulu yok |
+| Native iyileştirme | G76–G79, G83–G86 | Modele özel profiller, kendi Rust gradyan/CPU ve Metal LoRA/QLoRA, sabit holdout ve kontrollü skill terfisi |
+| Kapasite | G80–G82 | Kontrollü tahmin, gerçek kalibrasyon, belirsizlik ve tarihli yatırım senaryoları; otomatik harcama yok |
+| Yeniden kullanım/sürüm | G51, kalan G06/G40–G45/W01 | İki uygulama, uyumlu model değişimi ve tam döngü faydası; özgün sürüm/provider/dağıtım kapıları korunur |
 
-XState önerilen, görünür bir yerel koordinasyon bağımlılığıdır; JavaScript runtime, derleme araçları ve süreç kapsamı uygulamadan önce envantere girmelidir. Bu belge gizli çıkarım backend’ine veya model indirmeye izin vermez. MiniCPM, Qwen ve göreve özgü politikalar destek profili sözleşmelerini geçmelidir; bir model ailesinin desteği evrensel değiştirilebilirlik değildir.
-
-Uygulama kartları şema/sürümü, sahipliği, sayısal kabul eşiklerini, sonlu bütçeyi ve bağımlılıkları sabitlemelidir. Rol kaydı ve yürütme sözleşmeleri core’a, model manifestleri models’a, kıyaslar evals’a, kürasyonlu veri/tarifler training’e aittir; politika ve bütünleşme pin’leri devguide’da kalır. Önceki Goal’lerin kabul kanıtlarını koruyun; yeni kapsam kabul edildiğinde kalan kartları açıkça revize edin. G40’ın çözülmemiş sağlayıcı kabulü bu tasarımla atlanmaz; mevcut onarım/çağrı limitleri değişmez. Burada yeni Goal numarası, runtime kabulü veya eğitim başarısı iddia edilmez.
+Sayısal kalite/kaynak sınırları başlangıç ölçümünden sonra, aday karşılaştırmasından önce sabitlenir; popülerlik veya yayıncı hızından uydurulmaz. [Mimarideki rol tablosu](architecture.md#rust-harness-model-rolleri-ve-alana-göre-seçim) çalışma konumunu model rolünden ayırır; STT, TTS, görsel algı ve metin alanlarını ayrı tutar. Hiçbir açık ağırlık model evrensel destek sayılmaz. XState açık önerilen iş akışı bağımlılığıdır; inference motoru veya Rust yetkisinin yerine geçmez, envanter/profil kabulü bütünleşmeden önce gelir. Aynı anda bir Goal uygulanır; bağımlı işe geçmeden özel tüketim yenileme, tam kontroller, gerçek ayrı inceleme, güncel CI ve bakımcı yetkili merge gerekir.
 
 ## v0.1.0 sürüm kontrol listesi
 

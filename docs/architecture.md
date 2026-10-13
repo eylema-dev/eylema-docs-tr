@@ -1,6 +1,6 @@
-# Eylema — Basit, performanslı eylemci yapay zekâ web platformu — v0.5
+# Eylema — Basit, performanslı eylemci yapay zekâ web platformu — v0.6
 
-Dil: Türkçe. Kaynak sürüm: 0.5.0. İngilizce kaynak belge: [Architecture v0.5](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
+Dil: Türkçe. Kaynak sürüm: 0.6.0. İngilizce kaynak belge: [Architecture v0.6](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
 
 Tarih: 13 Ekim 2026. Ürün: **Eylema**. Ürün çerçevesi: **Basit, Performanslı Eylemci Yapay Zeka Sürekli Geliştirme ve İşletme Web Platformu.** Durum: uygulanan görev çekirdeği gelişen ürün mimarisi. [Çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) mevcut yürütüm kapsamını belirtir; model, eğitim ve tam ürün kabulü ayrıdır.
 
@@ -211,6 +211,85 @@ Sınırlı yerleştirme ortamını referans döngü olarak kullanın: kullanıc�
 | Yerellik ve kaynak | Birincil M4 Pro’da çalışır; tepe birleşik bellek, yükleme/değiştirme zamanı, p95/p99 karar gecikmesi, durdurma gecikmesi ve sahne çekişmesi kaydedilir; hosted fallback olmadığı kanıtlanır |
 
 Sayısal limitler ve değerlendirme kümeleri her uygulama kartında başlangıç ölçümünden sonra, aday puanlamadan önce sabitlenir. Bunlar kabul gereksinimleridir; bu bütünleşme revizyonunda tümü **not_run** durumundadır. Roller farklı sıklıklarda çalışır; algı/planlama gerektiğinde çağrılır, karar işi sınırlıdır, açıklama durdurma yolunun dışında kalır. Ağırlık, görüntü/ses ön işleme, KV/recurrent durum, model geçiş tamponları, XState runtime ve tarayıcı/Metal belleği birlikte hesaplanır. Modelin parametre sayısı birlikte bellekte kalma, gecikme veya kalite iddiası oluşturmaz.
+
+## Rust harness, model rolleri ve alana göre seçim
+
+Kabul edilen ürün, farklı model türlerinin güçlü yanlarını birleştirerek planlanan işleri tamamlayan bir Rust harness’tır. Kullanıcı sınırlı döngü/alt akış kurar, kabul edilmiş rol/model atamalarını seçer, türlü araçları yürütür, doğrulanmış sonucu inceler ve izinli iyileştirme verisi toplar. Yerel açık ağırlık inference kendi Rust CPU/Metal bileşenlerimizde çalışır. Açıkça yapılandırılmış dış büyük modeller aynı sözleşmeler üzerinden rol üstlenebilir; yerel profil seçmek dış veri paylaşımı, ücretli çağrı veya gizli yedek yol açmaz. Harness yetkisi, kaynak denetimi ve kalıcı yürütme Rust’ta kalır.
+
+Rol, yetenek profili, model mimarisi ve çalışma konumu farklı boyutlardır. Bir model ayrı çıktı sözleşmeleriyle birkaç rol üstlenebilir; bir rolde birden fazla alan adayı bulunabilir. Alt roller üst yetki/bütçeyi genişletmeden ses, görüntü, kod, erişim veya işe özel davranışı ayrıntılandırabilir. Düşünme, kanıta bağlı sınırlı değerlendirmedir; gizli chain-of-thought toplanmaz. Model değerlendirmesi yürütülmüş testlerin yerini alamaz veya araç yetkisi veremez.
+
+### Tarihli açık ağırlık örnekleriyle dokuz sabit rol
+
+Tablo **13 Ekim 2026** tarihli açık Hugging Face depo indirme gözlemlerini kullanır; tam kaynak sürümleri [örnek snapshot’ındadır](https://github.com/eylema-dev/devguide/blob/main/records/open-weight-role-examples.json). Yaygın indirilen örneklerle yeni rol uzmanlarını bir araya getirir; dünya sıralaması veya her iş için en iyi model iddiası değildir. İndirme sayısı tekil kullanıcı veya kalite değildir. [Metrik tanımı](https://huggingface.co/docs/hub/models-download-stats).
+
+| Rol kimliği | Rol | Sorumluluk | Türlü çıktı | Açık ağırlık örnekleri (30 günlük indirme) | Goal’ler |
+|---|---|---|---|---|---|
+| `perception` | Algı | Görüntü/video gözlemlerini yorumlar; ses STT ayrı profildir. | ObservationEnvelope; tespit/özellikler | [Qwen/Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) (8,036,055); [openbmb/MiniCPM-V-4_5](https://huggingface.co/openbmb/MiniCPM-V-4_5) (87,245) | G49, G52, G53 |
+| `reasoning` | Düşünme / akıl yürütme | Kısıtları, seçenekleri ve belirsizliği değerlendirir. | Sınırlı çözüm değerlendirmesi; kanıta bağlı özet | [Qwen/Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B) (12,626,778); [deepseek-ai/DeepSeek-R1-Distill-Qwen-7B](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B) (346,084) | G27, G30, G31 |
+| `planning` | Planlama | Hedefleri adımlara, bağımlılıklara ve tamamlanma kontrollerine böler. | PlanProposal | [Qwen/Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) (9,880,368); [openai/gpt-oss-20b](https://huggingface.co/openai/gpt-oss-20b) (5,979,446) | G32, G48, G66 |
+| `decision` | Karar / yönlendirme | Yol/model/araç seçer; adayları sınıflandırır veya puanlar. | DecisionAssessment; seçim/evet-hayır/puan anlamları | [facebook/bart-large-mnli](https://huggingface.co/facebook/bart-large-mnli) (2,469,015); [vllm-sr/Decision-2.0-Kai-0.6B](https://huggingface.co/vllm-sr/Decision-2.0-Kai-0.6B) (1,806) | G56, G57, G58 |
+| `policy` | Eylem politikası | Tanımlı eylem alanında sıradaki izinli eylemi önerir. | DecisionProposal; türlü eylem adayı | [openvla/openvla-7b](https://huggingface.co/openvla/openvla-7b) (152,118); [lerobot/smolvla_base](https://huggingface.co/lerobot/smolvla_base) (135,996) | G25, G26, G54 |
+| `world_model` | Dünya / dinamik | Aday eylemler için sonraki durum, sonuç veya maliyeti tahmin eder. | Tahmin edilen durum/sonuç; belirsizlik | [facebook/vjepa2-vitl-fpc64-256](https://huggingface.co/facebook/vjepa2-vitl-fpc64-256) (316,399); [nvidia/Cosmos-Predict2.5-2B](https://huggingface.co/nvidia/Cosmos-Predict2.5-2B) (5,720) | G26, G49, G52 |
+| `specialist` | Uzman / üretici | Kod, belge, yapılandırılmış sonuç veya ses gibi alan çıktısı üretir. | Sınırlı artifact önerisi; TTS parça profili | [Qwen/Qwen3-Coder-30B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct) (398,061); [Qwen/Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B) (12,626,778) | G30, G31, G59, G61 |
+| `critic` | Değerlendirici / eleştirmen | Plan/sonuçları inceler; eksik ve çelişkileri bulur. | Bulgu/ödül değerlendirmesi; yürütme kanıtı değildir | [Qwen/Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) (9,880,368); [Skywork/Skywork-Reward-V2-Qwen3-8B](https://huggingface.co/Skywork/Skywork-Reward-V2-Qwen3-8B) (2,014) | G50, G51 |
+| `representation` | Temsil / erişim | İzinli ilgili kaynakları embedding ile temsil eder, getirir ve yeniden sıralar. | Sürümlü vektörler/sıralı kaynak referansları | [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) (220,348,634); [BAAI/bge-m3](https://huggingface.co/BAAI/bge-m3) (32,825,246); [intfloat/multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small) (10,051,718) | G67, G68, G69, G70, G71 |
+
+BART MNLI sınıflandırma başlangıcıdır; Decision 2.0 robot politikası yerine yapılandırılmış seçim/evet-hayır/puan davranışı ekler. Yeni adaylarının indirme sayısı çok daha düşüktür. SmolVLA/OpenVLA robotik örnekleridir; iş/eylem/durum uyumu ve eğitim gerekir, hazır yerleştirme politikası değildir. Bağlantılı V-JEPA checkpoint’i video temsil encoder’ıdır; eyleme koşullu dünya tahmini ayrı profil ister. Cosmos ağırlık koşulları ayrıca erişim onayına bağlıdır. Ödül puanı ve modellerin uzlaşması doğruluk kanıtı değildir. Örnekler adaydır; benimsenmiş inference kitaplığı veya kabul edilmiş Eylema yürütümü değildir. Yayıncı model kartı ve ayrı artifact/operatör/hak kapıları izlenir.
+
+### Ayrı ses, görüntü ve metin profilleri
+
+| Profil | Rol sınırı ve çıktı | Örnekler (30 günlük indirme) | Kabul |
+|---|---|---|---|
+| `speech_to_text` | Ses algısı; parça/zaman/dil metaverili sınırlı transkript | [openai/whisper-large-v3-turbo](https://huggingface.co/openai/whisper-large-v3-turbo) (6,342,753); [nvidia/parakeet-tdt-0.6b-v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3) (622,817) | G59/G60/G62: EN/TR WER/CER, zaman, bozuk ses, akış sınırları ve durdurma |
+| `text_to_speech` | `specialist` altında ses üretimi; STT’den ayrı ses profili/örnekleme hızı/parça/izin sözleşmesi | [hexgrad/Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) (10,639,234); [Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice) (1,041,642) | G59/G61/G62: anlaşılabilirlik, telaffuz, ilk ses gecikmesi, süre/tampon sınırı ve durdurma |
+| `image_video_perception` | Görsel algı; ön işleme/kare/zaman/özellik veya tespit profili | [Qwen/Qwen3-VL-8B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct) (8,036,055); [openbmb/MiniCPM-V-4_5](https://huggingface.co/openbmb/MiniCPM-V-4_5) (87,245) | G49/G52/G53: encoder/projector referansı, giriş sınırı, gerçek M4 kalite/kaynak |
+| `text_domain` | Ayrı düşünme, planlama, kod, değerlendirme ve erişim atamaları | Dokuz rol tablosundaki aday havuzu | Gecikme/bellek karşılaştırmasından önce işe özgü EN/TR kalite sabitlenir |
+
+Dil kapsamı profile özeldir. Parakeet v3’ün yayıncı dil listesinde Türkçe yoktur; Türkçe STT adayı sayılmaz. Qwen3-TTS ve Kokoro için dil/ses profili ayrıca doğrulanır. [Chatterbox çok dilli ailesi](https://github.com/resemble-ai/chatterbox) Türkçeyi listeler ve ek TTS adayıdır; tam çok dilli checkpoint, ses hakları ve gerçek Rust kalitesi yine G59 kabulü ister. Yayıncı performansı M4/Rust kanıtı değildir.
+
+| Metin alanı | Atamadan önce model seçim kanıtı |
+|---|---|
+| Düşünme / planlama | Ayrılmış işlerde tamamlanma, kısıta uyum, yapılandırılmış çıktı geçerliliği, onarım/iterasyon sınırı |
+| Kod / belge uzmanı | Yürütülmüş kod testleri veya doğrulanmış belge çıktısı; tam iş/alan/dil sürümü |
+| Eleştirmen / ödül | Hata bulma ve tercih kalibrasyonu; kendi kendini onaylama yerine bağımsız sonuç kontrolü |
+| Embedding / yeniden sıralama | EN/TR recall/nDCG, parça/belge soy bağı, boyut, pooling, önek ve normalizasyon |
+
+Amaç güçlü alan adaylarını birlikte tutup ölçülen birleşik kaynak bütçesi içinde işe göre seçmektir. Popülerlik keşif sinyalidir. Artifact hakları, operatör/biçim/tokenizer uyumu, iş kalitesi ve donanım kapasitesi kabulü belirler. MoE aktif hesap miktarı bütün resident ağırlık, KV/durum ve çalışma alanı belleğinin yerine geçmez. Bütün açık ağırlık mimarileri için söz yoktur: destek tanımlandı → referansla doğrulandı → adı belirtilen donanımda yürütüldü → belirli iş/profil için kabul edildi şeklinde ilerler. Desteksiz yerel profil açık hata verir; dış model kullanımı kullanıcının ayrı yapılandırdığı seçenektir.
+
+### Projeye özel kayıtlar, ekosistem paketleri ve RAG
+
+Kayıtların varsayılanı `project_private` olur. Yürütme, toplama, eğitim, dış paylaşım ve ekosistem dışa aktarımı ayrı izin kullanır. Gözlem, öneri, gerçek araç etkisi/sonucu, insan düzeltmesi ve başarısızlık proje/döngü/model/artifact soy bağını korur. Türevler, embedding’ler, prompt’lar, önbellekte erişim bağlamı ve eğitilmiş adaylar geçerli kısıtları devralır; kimlikleri çıkarmak tek başına kaydı paylaşılabilir yapmaz. Ham ses/video ayrıca isteğe bağlıdır. Özel proje sessizce paylaşılan modeli eğitemez veya başka projenin indeksini besleyemez.
+
+Kullanıcı izinli kayıt, veri kümesi, model ve değerlendirmeleri açık koşul/kaynak bilgisiyle sınırlı paylaşım adayına seçebilir. İnceleme uygun paketleri ekosistem kataloğuna alır; içe alma kullanım öncesinde hash, profil uyumu ve hakları doğrular. Kabul model etkinleştirmez veya proje erişimi vermez. Yayın/geri çekme sınırları açık kalır; eğitilmiş ağırlığı emekliye ayırma veya yeniden eğitme, garanti edilmiş unlearning’den ayrıdır. Bu sınırlar G63–G65’e aittir.
+
+RAG, birleşebilir harness alt akışıdır: izinli belge → sınırlı alma/parçalama → kendi Rust embedding yürütmemiz → projeye bağlı vektör/hybrid erişim → isteğe bağlı yeniden sıralama → düşünme/planlama/yanıt → doğrulanmış kaynak bağlantısı ve gözlenen iş sonucu. G67–G71 embedding/model/indeks/belge sürümlerini bağlar; embedding uzayı değişince açık yeniden indeksleme gerekir. Getirilen talimat kaynak içeriktir, yetki değildir. Boş/çelişkili kanıt, eski/silinmiş parçalar, projeler arası erişim ve izinsiz dış paylaşım reddedilir veya açık bilinmeyen olarak kalır. Paylaşılabilir erişim/değerlendirme paketleri ekosistemi büyütürken özel kaynaklar projelerinde kalır.
+
+### İnsan yönlendirmeli geliştirme ve native iyileştirme
+
+Eylema, insan hayal gücü ve uzman değerlendirmesini büyük dil modellerinin desteğiyle esnek agentic sistemlere dönüştüren bir platformdur. İnsanlar amaçları, sınırları ve kabulü belirler; sınırlı uzman bileşenler izinli işi önerir ve yürütür. Sabit rol/araç/veri sözleşmeleri model değişiminde korunur. Aynı harness, açıkça bağlanan büyük bir modelle veya kabul edilmiş yerel açık ağırlık profil takımıyla çalışabilir. Seçimi ölçülmüş uçtan uca kalite, gizlilik ve kaynak verimliliği belirler; daha büyük model ya da ek döngü kendiliğinden daha iyi değildir.
+
+İyileştirme döngüsü: izinli sonuçlar ve düzeltmeler → sürümlü veri/RAG kaynakları → modele özel reçete → sınırlı aday eğitimi → bağımsız ayrılmış değerlendirme → insan denetiminde canary/kabul veya geri alma → uygunsa yeniden kullanılabilir skill. Yürütme, veri toplama, eğitim, dışarı açıklama ve paylaşım ayrı izinlerdir. Hiçbir kayıt platformu değiştirme, skill yayımlama veya başka projenin verisiyle eğitim yetkisi vermez. Kanıtlar gözlenen girdi/çıktı/etkileri ve kısa karar gerekçelerini içerir; gizli özel muhakemeyi içermez.
+
+| Bileşen | Sabit sorumluluk | Kabul sahibi |
+|---|---|---|
+| Router | Kaynağa bağlı işi RAG'a, kod/belge işini uygun uzmanlara ve araçlara gönderir; belirsiz/desteksiz rotaları izin genişletmeden reddeder | G74 |
+| Skill paketi | Türlü girdi/çıktı, sınırlı alt akış, araçlar, model profilleri, izinler, bütçeler ve kabul kanıtını sürümler | G75 |
+| Modele özel eğitim profili | Temel model/artifact/tokenizer, eğitilen hedefler, adaptör rank/alpha, hassasiyet/nicemleme, veri hakları ve yöntemi sabitler; inference desteği eğitim desteği değildir | G76 |
+| İyileştirme denetleyicisi | Aday işleri, checkpoint ve kaynakları ayırır, başlatır/gözler/durdurur; fixture yalnız denetleyici davranışını kanıtlar | G77 |
+| Native adaptör inference | Kesin temel/hedef/state-reset ile bağımsız yükleme/birleştirme sayısal eşliğini kendi Rust'ımızda doğrular | G78 |
+| Native eğitim | Kendi Rust gradyan/optimizer, CPU LoRA, Metal LoRA ve ayrıca kabul edilen QLoRA profilleri | G83–G86 |
+| Terfi | Sabit bağımsız holdout, kalite/kaynak gerilemeleri ve canary'yi karşılaştırır; aktif/uçuş halindeki kimliği ve özel veri soyunu korur | G79 ve G36/G37 |
+
+[LoRA](https://arxiv.org/abs/2106.09685), tanımlı temel ağırlıkları sabit tutarak düşük rank güncellemeleri eğitir. [QLoRA](https://arxiv.org/abs/2305.14314), adaptör eğitimini nicemlenmiş sabit temel ile birleştirir; eğitim nicemlemesi ve gradyan operatörleri ayrı destek gerektirir. Bu yöntemler her modele doğrudan uyum sağlamaz. Kabul edilmiş yerel eğitim kendi Rust bileşenlerimizde çalışır. Unsloth benzeri araçlar açıkça incelenmiş geliştirme/referans veya reçete yardımcılarıdır; gizli üretim motoru değildir. G35'in sabitlenmiş harici referans koşusu yükümlülüğü native eğitim ve kendi motorumuzdaki yeniden kabulden ayrıdır; G83–G86 yerine geçemez.
+
+### Kapasite ve yatırım planlama
+
+G80, ağırlıkları, MoE'nin bellekteki tüm uzmanlarını, KV/tekrarlayan durumu, aktivasyon/çalışma alanını, eşzamanlı rol rezervasyonlarını, RAG depolama/indeks ve adaptör/optimizer durumlarını kontrollü birimlerle ve açık varsayımlarla tahmin eder. G81 desteklenen katsayıları gerçek adı belirtilmiş donanımda kalibre eder; ölçülmemiş eğitim veya diğer cihaz katsayıları bilinmeyen kalır. Birleşik bellek ile ayrı VRAM/sistem RAM'i farklı bütçelerdir; rezervasyon ölçülmüş fiziksel tahsis değildir.
+
+G82 mevcut donanımda zamanlama/model/bağlam/hassasiyet seçeneklerini ek donanım veya açıkça izinli harici serving ile karşılaştırır. Kalite tabanları, belirsizlik aralıkları, tarihli fiyat/para birimi/koşullar ve gizlilik nedeniyle elenen seçenekler gösterilir. Tavsiye incelenebilir yatırım önerisidir; kendiliğinden sipariş vermez, abonelik değiştirmez veya harcama yapmaz. Tahminler ölçülmüş kabul olmadan gecikme, kalite veya destek kanıtı değildir.
+
+İlk yerel metin/RAG iş kanıtı G72'dir; gerçek insan yetkisi ve etkili durdurma G73'tedir. İsteğe bağlı görüntü, STT/TTS, dünya ve 3D profilleri bu ilk kanıtı engellemez. Tam sürüm kabulü özgün ve ek kapıların tümünü korur.
+
 
 ## 3B ve WebGPU tasarımı
 
