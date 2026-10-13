@@ -23,7 +23,7 @@
     {
       "path": "docs/architecture.md",
       "language": "tr",
-      "sha256": "b760d9bec56e2a4dea1ecfe3f15a0352f4eb206900f6aded735c5618ef428746"
+      "sha256": "ed0811cc00d1b678010a7591da92d57513c07b9625a18b35d702bfa5c5a80630"
     },
     {
       "path": "docs/development-and-operations.md",
@@ -38,12 +38,12 @@
     {
       "path": "docs/project-structure.md",
       "language": "tr",
-      "sha256": "a97b1edc9191a2a8f8e49dcfea6578155027449fa9a774e347bd617e92fb2893"
+      "sha256": "763694c7539d513746bb32cef17a41e973cc40700b5f2202cdf51c6e5e2d6417"
     },
     {
       "path": "docs/roadmap.md",
       "language": "tr",
-      "sha256": "cbe5c10175adf65dd170985926e5702fd056b5b2fd3248556f451ecac4c2569e"
+      "sha256": "959c27e8be23bdad5960460361b5836d06c64e028221754256bc5f75f92ddcb1"
     }
   ]
 }

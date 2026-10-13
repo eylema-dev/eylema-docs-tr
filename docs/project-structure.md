@@ -1,10 +1,14 @@
 # Proje yapısı ve kabul edilen ilk ürün kararları
 
-Sürüm **0.3.0**, 12 Ekim 2026. [İngilizce kaynak](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/project-structure.md).
+Sürüm **0.4.0**, 13 Ekim 2026. [İngilizce kaynak](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/project-structure.md).
 
 Bakımcı 12 Ekim 2026 tarihinde 1, 2, 4, 5, 6 ve 8 numaralı önerileri kabul etti, aşağıdaki üç cihazlık envanteri bildirdi ve Apache-2.0 seçti. Bu kararlar güncel ürün yönünü günceller. Tarihsel Goal kayıtlarını yeniden yazmaz; kalan runtime, model veya donanım kabulünün geçtiğini iddia etmez.
 
 ## İlk kullanıcı ve ürün sonucu
+
+Bakımcının 13 Ekim 2026 açıklaması Eylema’yı agentic çerçeveyi oluşturan platform olarak tanımlar: kullanıcılar işbirlikli geri besleme döngülerini kurar, uyumlu yerel modelleri atayıp değiştirir, kararları inceler ve izinli eğitim verisini toplar. Sabit rol/davranış sözleşmeleri belirli model ailelerinden uzun ömürlüdür. MiniCPM, Qwen ve yerel karar politikaları bu çerçevedeki katılımcılardır; ürünün sabit kimliği değildir. [Mimari revizyonu](architecture.md#işbirlikli-agentic-döngü-ve-sabit-platform-sözleşmeleri) döngüyü, değiştirme yaşam döngüsünü, kanıt ve veri kümesi sınırlarını tanımlar; bütünleşmeleri uygulanıp kabul edilene kadar öneridir.
+
+Platformun kullanıcı akışı: döngü ile eylem/gözlem sözleşmelerini tanımla → rolleri bağla → kabul edilmiş model atamalarını ve toplama politikasını seç → çalıştır/incele/durdur → bölümleri düzelt ve kürasyondan geçir → aday modeli karşılaştır → uyumlu atamayı güvenli sınırda etkinleştir. Konsol döngü, model, bölüm ve veri kümesi sürümlerini göstermelidir. Yerleştirme uygulaması ile belge-kanıt inceleme uygulaması, platform her modele göre yeniden yazılmadan, aynı platform sözleşmeleriyle farklı döngü tanımları olarak ifade edilebilmelidir. Aşağıdaki deterministik konsol ilk teslim edilen temel olarak kalır; ürün amacının sınırı değildir.
 
 İlk kullanıcı, yerel bir eylemci uygulaması geliştiren yazılımcıdır. İlk teslimat tek kullanıcılı görev konsoludur: görev oluşturma, sınırlı deterministik adımları yürütme, ilerleme/sonuç inceleme, yetkili kalan işi durdurma, hizmeti yeniden başlatma ve aynı kalıcı görevi açma. İlk adımlar yalnız uygulamanın kendi görev durumunu değiştirir. Uzak yönetim, birden fazla tenant ve keyfî dosya sistemi/süreç/ağ eylemleri ilk ürünün dışındadır.
 
