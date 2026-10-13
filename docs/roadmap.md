@@ -1,6 +1,6 @@
 # Eylema ilk sürüm yol haritası
 
-Sürüm **0.6.0**, 13 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: M2 aşamasında daha erken kullanılabilir görev konsolu önizlemesiyle **v0.1.0 deneysel**. Aşamalar teslim tarihi sözü değil, kabul kapısıdır. Çekirdekte görev/runtime/journal/hizmet/CLI/tarayıcı çalışmaları ve sınırlı GPU bileşenleri vardır; [çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) her uygulamanın kapsamını belirtir. Tam insan kimliği doğrulanmış akış, model, öğrenme ve otonom geliştirme kabulü ayrıdır.
+Sürüm **0.7.0**, 13 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: M2 aşamasında daha erken kullanılabilir görev konsolu önizlemesiyle **v0.1.0 deneysel**. Aşamalar teslim tarihi sözü değil, kabul kapısıdır. Çekirdekte görev/runtime/journal/hizmet/CLI/tarayıcı çalışmaları ve sınırlı GPU bileşenleri vardır; [çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) her uygulamanın kapsamını belirtir. Tam insan kimliği doğrulanmış akış, model, öğrenme ve otonom geliştirme kabulü ayrıdır.
 
 ## Seçilen ilk çalışan uygulama
 
@@ -74,3 +74,7 @@ Sayısal kalite/kaynak sınırları başlangıç ölçümünden sonra, aday kar�
 ## İlk sürüm dışında bırakılanlar
 
 Linux desteği, ikinci fiziksel cihaz kabulü, genel CAD çekirdeği, bütün model mimarileri, dağıtık eğitim, yalnız Rust'tan oluşan Linux çekirdeği, her GPU sürücüsü, otomatik satın alma, gözetimsiz ayrıcalıklı kendi kendini değiştirme ve tüm üretim web özellikleri sonraki kararlardır. Yol haritası uzun vadeli mimariyi korurken önce sınırlı tek uçtan uca uygulamayı kanıtlar.
+
+## Bellek kabul uzantısı
+
+G87–G90 amaç kontrollü bellek sözleşmeleri, kendi episodik/semantik/knowledge graph erişimimiz, analitik snapshot ve sınırlı backend profilleri ekler. G72 artık G88’i gerektirir; isteğe bağlı analitik/veri alışverişi erken yerel metin kanıtını geciktirmez. Dört yeni kapı G44’e bağlanır. Mevcut gerekli release/tarihsel kabul ve bloke G40 sınırları korunur. [Bellek tasarımı](https://github.com/eylema-dev/devguide/blob/main/docs/tr/memory-layer.md) kanıt, saklama süresi ve Rust bağımlılık sınırlarını tanımlar. Bunlar planlı kapılardır; yürütülmüş veritabanı/model desteği değildir.

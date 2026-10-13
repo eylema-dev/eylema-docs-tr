@@ -1,6 +1,6 @@
-# Eylema — Basit, performanslı eylemci yapay zekâ web platformu — v0.6
+# Eylema — Basit, performanslı eylemci yapay zekâ web platformu — v0.7
 
-Dil: Türkçe. Kaynak sürüm: 0.6.0. İngilizce kaynak belge: [Architecture v0.6](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
+Dil: Türkçe. Kaynak sürüm: 0.7.0. İngilizce kaynak belge: [Architecture v0.7](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
 
 Tarih: 13 Ekim 2026. Ürün: **Eylema**. Ürün çerçevesi: **Basit, Performanslı Eylemci Yapay Zeka Sürekli Geliştirme ve İşletme Web Platformu.** Durum: uygulanan görev çekirdeği gelişen ürün mimarisi. [Çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) mevcut yürütüm kapsamını belirtir; model, eğitim ve tam ürün kabulü ayrıdır.
 
@@ -369,3 +369,11 @@ Tam özellikli kendi web motoru, 3B motor, model yürütücüsü ve eğitim ekos
 - [Yerel model takımı JSON şeması](https://github.com/eylema-dev/eylema/blob/main/ai-team-protocol/v0.2/model-set-release.schema.json)
 
 Bu belgeler mimari ve yapısal sözleşme teslimidir. Depo katkı araçları ve PR çalışması, planlanan otonom geliştirme takımından ayrıdır. Bu belgeler eğitim, model/cihaz kıyası, framework yürütmesi veya zamanlanmış izleme kanıtı sunmaz.
+
+## Proje kapsamlı bellek ve knowledge graph
+
+Bakımcı bellek katmanı istedi ve CortexDB ile knowledge graph örüntüsünü kastettiğini açıkladı. Altı isteğe bağlı bellek türü working, episodic, semantic, procedural, knowledge_graph ve analytical’dır. Sabit kendi Rust sözleşmelerimiz arkasında ortak platform yeteneğidir; ek zorunlu model rolleri değildir. [Bellek katmanı](https://github.com/eylema-dev/devguide/blob/main/docs/tr/memory-layer.md) amaç kontrollü yazım/erişim, zamanlı kaynak atıflı graph iddiası, çelişkili kanıt, bağlam sınırı, geri çekme ve backend profillerini tanımlar. G63 ve G87–G90 ayrı uygulama/kabul kapılarıdır; bu sürüm runtime’larını sağlamaz.
+
+SQLite cihazda yerel transactional depolama ve DuckDB analitik/sütun odaklı sorgu referans/veri alışverişi adaylarıdır; kurulmuş üretim motoru veya onaylanmış bağımlılık istisnası değildir. C/C++ motorları binding ile birinci taraf Rust olmaz. Üretim journal/index/graph/analitik davranışını Eylema sahiplenir; kullanılamayan backend açık hata verir. Bakımcının CortexDB açıklaması paket seçmez.
+
+Bellek kaynak/proje/şema/index sürümlerini, geçerliliği, doğrulama durumunu ve miras execute/collect/train/external_disclosure/ecosystem_export haklarını korur. Filtreleme sıralama/dolaşım öncesindedir, veri aktarımı güncel politikayı tekrar denetler. Tahmin, tekrarlanan model uzlaşması ve graph bağlantısı doğrulanmış gerçek veya eylem yetkisi olamaz. Kaynak geri çekme gelecekteki türev/cache erişimini geçersizleştirir, etkilenen eğitim adaylarını karantinaya alır; fiziksel silme, açıklanmış kopyayı geri getirme veya model unlearning kanıtı değildir. Erken G72 metin/RAG kabulü artık sınırlı G88 graph/deneyim erişimini içerir; isteğe bağlı ses/görsel/dünya modeli gerektirmez. Analitik kapsam ve backend veri alışverişi sonraki kapılardır.
