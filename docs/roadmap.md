@@ -1,6 +1,6 @@
-# Eylema ilk sürüm yol haritası
+# Eyleme ilk sürüm yol haritası
 
-Sürüm **0.7.0**, 13 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: M2 aşamasında daha erken kullanılabilir görev konsolu önizlemesiyle **v0.1.0 deneysel**. Aşamalar teslim tarihi sözü değil, kabul kapısıdır. Çekirdekte görev/runtime/journal/hizmet/CLI/tarayıcı çalışmaları ve sınırlı GPU bileşenleri vardır; [çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) her uygulamanın kapsamını belirtir. Tam insan kimliği doğrulanmış akış, model, öğrenme ve otonom geliştirme kabulü ayrıdır.
+Sürüm **0.7.0**, 13 Ekim 2026. İngilizce kanoniktir; [English](https://github.com/eyleme-dev/eylema-docs-en/blob/main/docs/roadmap.md). Hedef: M2 aşamasında daha erken kullanılabilir görev konsolu önizlemesiyle **v0.1.0 deneysel**. Aşamalar teslim tarihi sözü değil, kabul kapısıdır. Çekirdekte görev/runtime/journal/hizmet/CLI/tarayıcı çalışmaları ve sınırlı GPU bileşenleri vardır; [çekirdek kanıtı](https://github.com/eyleme-dev/eyleme/blob/main/README.tr.md) her uygulamanın kapsamını belirtir. Tam insan kimliği doğrulanmış akış, model, öğrenme ve otonom geliştirme kabulü ayrıdır.
 
 ## Seçilen ilk çalışan uygulama
 
@@ -46,7 +46,7 @@ Eklenen model-set şeması 0.2.0’dır; runtime/NeedSpec 0.1.0 kalır. Sentetik
 
 ## Kabul edilen Rust harness Goal revizyonu — 13 Ekim 2026
 
-Bakımcı dokuz model rolünü, isteğe bağlı açık dış büyük model atamalarını ve yerel açık ağırlık inference için kendi Rust motorumuzu birleştiren harness’ı kabul etti. [Güncel aksiyon planı](https://github.com/eylema-dev/devguide/blob/main/docs/tr/platform-action-plan.md) ve [güncel kartlar](https://github.com/eylema-dev/devguide/blob/main/records/platform-goal-plan.json) yalnız gelecek yürütme önerilerini günceller. Kabul edilen yirmi dört özgün Goal kaydı değişmez; kalan yirmi üç özgün kart revize edilir, G46–G86 sınırlı platform parçaları ekler. Bunlar planlandı, tamamlanmadı. G40 mevcut gizlilik/host/çağrı/onarım sınırlarıyla engelli kalır; yeni hak verilmez.
+Bakımcı dokuz model rolünü, isteğe bağlı açık dış büyük model atamalarını ve yerel açık ağırlık inference için kendi Rust motorumuzu birleştiren harness’ı kabul etti. [Güncel aksiyon planı](https://github.com/eyleme-dev/devguide/blob/main/docs/tr/platform-action-plan.md) ve [güncel kartlar](https://github.com/eyleme-dev/devguide/blob/main/records/platform-goal-plan.json) yalnız gelecek yürütme önerilerini günceller. Kabul edilen yirmi dört özgün Goal kaydı değişmez; kalan yirmi üç özgün kart revize edilir, G46–G86 sınırlı platform parçaları ekler. Bunlar planlandı, tamamlanmadı. G40 mevcut gizlilik/host/çağrı/onarım sınırlarıyla engelli kalır; yeni hak verilmez.
 
 | Sıra | Teslim | Gerekli kanıt |
 |---|---|---|
@@ -77,4 +77,4 @@ Linux desteği, ikinci fiziksel cihaz kabulü, genel CAD çekirdeği, bütün mo
 
 ## Bellek kabul uzantısı
 
-G87–G90 amaç kontrollü bellek sözleşmeleri, kendi episodik/semantik/knowledge graph erişimimiz, analitik snapshot ve sınırlı backend profilleri ekler. G72 artık G88’i gerektirir; isteğe bağlı analitik/veri alışverişi erken yerel metin kanıtını geciktirmez. Dört yeni kapı G44’e bağlanır. Mevcut gerekli release/tarihsel kabul ve bloke G40 sınırları korunur. [Bellek tasarımı](https://github.com/eylema-dev/devguide/blob/main/docs/tr/memory-layer.md) kanıt, saklama süresi ve Rust bağımlılık sınırlarını tanımlar. Bunlar planlı kapılardır; yürütülmüş veritabanı/model desteği değildir.
+G87–G90 amaç kontrollü bellek sözleşmeleri, kendi episodik/semantik/knowledge graph erişimimiz, analitik snapshot ve sınırlı backend profilleri ekler. G72 artık G88’i gerektirir; isteğe bağlı analitik/veri alışverişi erken yerel metin kanıtını geciktirmez. Dört yeni kapı G44’e bağlanır. Mevcut gerekli release/tarihsel kabul ve bloke G40 sınırları korunur. [Bellek tasarımı](https://github.com/eyleme-dev/devguide/blob/main/docs/tr/memory-layer.md) kanıt, saklama süresi ve Rust bağımlılık sınırlarını tanımlar. Bunlar planlı kapılardır; yürütülmüş veritabanı/model desteği değildir.

@@ -1,14 +1,14 @@
-# Eylema — Basit, performanslı eylemci yapay zekâ web platformu — v0.7
+# Eyleme — Basit, performanslı eylemci yapay zekâ web platformu — v0.7
 
-Dil: Türkçe. Kaynak sürüm: 0.7.0. İngilizce kaynak belge: [Architecture v0.7](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
+Dil: Türkçe. Kaynak sürüm: 0.7.0. İngilizce kaynak belge: [Architecture v0.7](https://github.com/eyleme-dev/eylema-docs-en/blob/main/docs/architecture.md). Kod, yorumlar, dosya adları, API işlem adları, şemalar, hata kodları ve katkı kayıtları İngilizce; rehber ve açıklamalar İngilizce ve Türkçe yayımlanır. Çeviri aynı sözleşme kimliklerini korur ve kaynak sürümüne bağlanır. Depo araçları çeviri dosya özetlerini ve API kimliği eşliğini denetler; kaydedilmemiş değişiklikler hata verir. Anlamsal eşdeğerlik yine inceleme gerektirir.
 
-Tarih: 13 Ekim 2026. Ürün: **Eylema**. Ürün çerçevesi: **Basit, Performanslı Eylemci Yapay Zeka Sürekli Geliştirme ve İşletme Web Platformu.** Durum: uygulanan görev çekirdeği gelişen ürün mimarisi. [Çekirdek kanıtı](https://github.com/eylema-dev/eylema/blob/main/README.tr.md) mevcut yürütüm kapsamını belirtir; model, eğitim ve tam ürün kabulü ayrıdır.
+Tarih: 13 Ekim 2026. Ürün: **Eyleme**. Ürün çerçevesi: **Basit, Performanslı Eylemci Yapay Zeka Sürekli Geliştirme ve İşletme Web Platformu.** Durum: uygulanan görev çekirdeği gelişen ürün mimarisi. [Çekirdek kanıtı](https://github.com/eyleme-dev/eyleme/blob/main/README.tr.md) mevcut yürütüm kapsamını belirtir; model, eğitim ve tam ürün kabulü ayrıdır.
 
 Bu belge güncel mimari yönü tanımlar. v0.2’deki kendi Rust bileşenleri ve bağımlılık sınırı korunur; 3B, decision/world modelleri, Unsloth eğitim hattı ve insan denetimi tasarımın birinci sınıf parçaları olur. Geliştirme sırası aşağıda güncellenmiştir.
 
 ## Kabul edilen ilk ürün kararları
 
-12 Ekim 2026 tarihli [karar kaydı ve donanım envanteri](project-structure.md), geliştirici odaklı tek kullanıcılı yerel görev konsolunu, erken ihtiyaçtan PR’a kanıtı ve kendi kaynak/belgelerimiz için Apache-2.0 seçimini kaydeder. Birincil M4 Pro hedefi korunur; Mac mini M4 ve Linux RTX 4070 Ti Super ayrı kabul bekleyen ek cihazlardır. Mevcut Rust tipleri, EYL/EYLJ ve platform bağları korunur; model/öğrenme deterministik ve cihaz ölçümünü izler. Güncel uygulama kanıtı [çekirdektedir](https://github.com/eylema-dev/eylema/blob/main/README.tr.md).
+12 Ekim 2026 tarihli [karar kaydı ve donanım envanteri](project-structure.md), geliştirici odaklı tek kullanıcılı yerel görev konsolunu, erken ihtiyaçtan PR’a kanıtı ve kendi kaynak/belgelerimiz için Apache-2.0 seçimini kaydeder. Birincil M4 Pro hedefi korunur; Mac mini M4 ve Linux RTX 4070 Ti Super ayrı kabul bekleyen ek cihazlardır. Mevcut Rust tipleri, EYL/EYLJ ve platform bağları korunur; model/öğrenme deterministik ve cihaz ölçümünü izler. Güncel uygulama kanıtı [çekirdektedir](https://github.com/eyleme-dev/eyleme/blob/main/README.tr.md).
 
 ## Kabul edilmiş deneysel macOS kapsamı
 
@@ -24,11 +24,11 @@ Bu belge güncel mimari yönü tanımlar. v0.2’deki kendi Rust bileşenleri ve
 
 HardwareProfile tek fiziksel cihazı ve gözlenen kapasiteyi belirtir. WorkloadProfile aynı cihazdaki yürütüm hedefi, backend, GPU API ve kesin iş yükü/ortam sürümlerini belirtir. Atama ve kanıtlar model-set şema 0.2.0 üzerinden iki kimliği birlikte bağlar; tarihsel 0.1.0 şeması değişmez. Yinelenmiş/kopuk kimlikler, gerçek kapasite, kaynak/hash güveni ve kanıt kapsamı anlamsal doğrulama gerektirir; yapısal JSON kontrolü bunları kanıtlamaz.
 
-Tarayıcı kapanması yerel yürütücüyü veya Metal işçisini sonlandırmaz. Yeniden açılış güncel snapshot/olaylara bağlanır. Yerel oturum Host/Origin, CSRF, istek boyut/süre ve kapsamlı yetki kontrollerini uygulamalıdır. Kalıcı durum varsayılan olarak macOS Application Support içindeki Eylema dizininde tutulur; onay cevabı dayanıklı journal yazımından sonra verilir. Kimlik bilgileri, ham özel eğitim kayıtları ve gizli model muhakemesi normal olay kaydına girmez. Rastgelelik/hash için yeni kriptografi yerine standart macOS hizmetleri kullanılır. macOS, SDK, tarayıcı, sürücüler, host bağları, Metal shader ve WGSL açık bağımlılıklar olarak kalır.
+Tarayıcı kapanması yerel yürütücüyü veya Metal işçisini sonlandırmaz. Yeniden açılış güncel snapshot/olaylara bağlanır. Yerel oturum Host/Origin, CSRF, istek boyut/süre ve kapsamlı yetki kontrollerini uygulamalıdır. Kalıcı durum varsayılan olarak macOS Application Support içindeki eski adı korunan `Eylema` dizininde tutulur; onay cevabı dayanıklı journal yazımından sonra verilir. Kimlik bilgileri, ham özel eğitim kayıtları ve gizli model muhakemesi normal olay kaydına girmez. Rastgelelik/hash için yeni kriptografi yerine standart macOS hizmetleri kullanılır. macOS, SDK, tarayıcı, sürücüler, host bağları, Metal shader ve WGSL açık bağımlılıklar olarak kalır.
 
 ## Ürünün merkezindeki fikir
 
-**Eylema, birlikte çalışan agentic döngüleri tanımlama, çalıştırma ve geliştirme platformudur.** Bakımcı 13 Ekim 2026’da ürün amacını netleştirdi: döngüyü kurmak, modellerini değiştirmek ve eğitim için izinli veri toplamak. MiniCPM, Qwen ve yerel açık ağırlıklı karar modelleri değiştirilebilir katılımcılardır; sabit rollerin, sözleşmelerin ve yaşam döngüsünün sahibi platformdur. Görev konsolu bu platformun ilk arayüzü, mevcut deterministik çekirdek ise yürütme temelidir.
+**Eyleme, birlikte çalışan agentic döngüleri tanımlama, çalıştırma ve geliştirme platformudur.** Bakımcı 13 Ekim 2026’da ürün amacını netleştirdi: döngüyü kurmak, modellerini değiştirmek ve eğitim için izinli veri toplamak. MiniCPM, Qwen ve yerel açık ağırlıklı karar modelleri değiştirilebilir katılımcılardır; sabit rollerin, sözleşmelerin ve yaşam döngüsünün sahibi platformdur. Görev konsolu bu platformun ilk arayüzü, mevcut deterministik çekirdek ise yürütme temelidir.
 
 Uygulama gözlemlerini, durumunu, hedeflerini, eylemlerini, rol bağlantılarını, yetkilerini, kaynak bütçesini ve kabul koşullarını tanımlar. Yerel katılımcılar tipli öneriler paylaşır; yetkili yürütmenin ürettiği gözlemler sonraki kararı besler. Büyük modeller bu tanımları ve uygulamaları incelenen geliştirme iş akışında oluşturabilir. İnsan düzeltmeleri ve ölçülen sonuçlar sonraki veri kümesi ve model sürümlerini destekler.
 
@@ -110,7 +110,7 @@ Bu revizyon, 13 Ekim 2026’da istenen platform tasarımını tanımlar. Aşağ�
 
 ### Önce döngüyü kur, sonra modelleri ata
 
-Eylema sürümlü döngü tanımı, rol sözleşmesi kayıt sistemi, model/adaptör kataloğu, yürütme konsolu, kanıt deposu ve veri kümesi oluşturucu sağlar. Geliştirici rolleri bağlar, eylem/gözlem şemalarını ve bütçeleri tanımlar, uyumlu yerel modelleri seçer, kabul edilmiş yapılandırmayı çalıştırıp inceler. Aynı döngü, uygulama mantığı yeniden yazılmadan farklı ağırlık veya model aileleri kullanabilir.
+Eyleme sürümlü döngü tanımı, rol sözleşmesi kayıt sistemi, model/adaptör kataloğu, yürütme konsolu, kanıt deposu ve veri kümesi oluşturucu sağlar. Geliştirici rolleri bağlar, eylem/gözlem şemalarını ve bütçeleri tanımlar, uyumlu yerel modelleri seçer, kabul edilmiş yapılandırmayı çalıştırıp inceler. Aynı döngü, uygulama mantığı yeniden yazılmadan farklı ağırlık veya model aileleri kullanabilir.
 
 Üç yaklaşım değerlendirildi: her rolü tek çok kipli modelin üstlenmesi; eylemciler arasında sınırsız konuşma; tipli işbirlikli döngü. Önerilen döngü uzman rolleri ayrı ayrı değiştirilebilir tutar, yürütmeyi sınırlar ve deterministik başlangıçlarla kıyaslamayı sağlar. Kabul edilmiş ölçümler uygunsa tek model örneği birden fazla rolü üstlenebilir; her rol ayrı süreç veya sürekli bellekte yüklü model gerektirmez.
 
@@ -124,7 +124,7 @@ Eylema sürümlü döngü tanımı, rol sözleşmesi kayıt sistemi, model/adapt
 | Yürütme ve yetki | Kendi Rust çekirdeğimiz ve EYL/EYLJ | Güncel durumu, yetenekleri, onayları ve bütçeleri doğrular; gerçek sonuçları yürütüp kalıcılaştırır |
 | Açıklama ve değerlendirme | Yapılandırılmış karar kanıtı ve göreve özgü değerlendiriciler | Eylemin neden önerildiğini, neden izin verildiğini/reddedildiğini ve gerçekte ne olduğunu gösterir |
 
-Bakımcı “Jev” ile yerelde çalışan açık ağırlıklı karar modellerini kastettiğini netleştirdi. Bu ad seçilmiş bir ürün, paket veya checkpoint değildir. Decision Transformer, görev yörüngelerinden eğitilen çevrimdışı dizi tabanlı politika örneğidir; yayımlanan bir mimari veya başka ortama ait checkpoint, Eylema için genel karar motoru sayılmaz. Göreve eğitilmiş küçük politika/sıralayıcı ve deterministik arama karşılaştırma başlangıçlarıdır. MiniCPM ve Qwen adayları da yürütmeden önce kesin artifact, tokenizer/ön işleme, operatör, hak ve backend profili gerektirir. Kaynak aileler aday yetenekleri gösterir; bizim uyumluluğumuzu veya Türkçe görev kalitesini kanıtlamaz. [MiniCPM](https://github.com/OpenBMB/MiniCPM-V), [Qwen3](https://qwenlm.github.io/blog/qwen3/), [Decision Transformer makalesi](https://arxiv.org/abs/2106.01345), [resmî uygulama](https://github.com/kzl/decision-transformer).
+Bakımcı “Jev” ile yerelde çalışan açık ağırlıklı karar modellerini kastettiğini netleştirdi. Bu ad seçilmiş bir ürün, paket veya checkpoint değildir. Decision Transformer, görev yörüngelerinden eğitilen çevrimdışı dizi tabanlı politika örneğidir; yayımlanan bir mimari veya başka ortama ait checkpoint, Eyleme için genel karar motoru sayılmaz. Göreve eğitilmiş küçük politika/sıralayıcı ve deterministik arama karşılaştırma başlangıçlarıdır. MiniCPM ve Qwen adayları da yürütmeden önce kesin artifact, tokenizer/ön işleme, operatör, hak ve backend profili gerektirir. Kaynak aileler aday yetenekleri gösterir; bizim uyumluluğumuzu veya Türkçe görev kalitesini kanıtlamaz. [MiniCPM](https://github.com/OpenBMB/MiniCPM-V), [Qwen3](https://qwenlm.github.io/blog/qwen3/), [Decision Transformer makalesi](https://arxiv.org/abs/2106.01345), [resmî uygulama](https://github.com/kzl/decision-transformer).
 
 ```mermaid
 flowchart LR
@@ -190,7 +190,7 @@ Bu alanlardan deterministik, kanıta dayalı açıklama her zaman üretilebilir.
 
 ### Eğitim verisi bütün döngüden gelir
 
-Veri toplama, amacı, izinli alan/kipleri, saklama süresini, erişim ve export kurallarını içeren açık bir döngü politikasıdır. Yürütme izni eğitim izni vermez. Asgari kanıt ve izinli artifact referansları tutulur; ham ses/video/ekran görüntüsü ayrıca isteğe bağlıdır. Kimlik bilgileri, ilgisiz kullanıcı içeriği ve gizli muhakeme dışarıda tutulur. Ağırlık ve veri hakları Eylema’nın birinci taraf lisansından bağımsız kontrol edilir.
+Veri toplama, amacı, izinli alan/kipleri, saklama süresini, erişim ve export kurallarını içeren açık bir döngü politikasıdır. Yürütme izni eğitim izni vermez. Asgari kanıt ve izinli artifact referansları tutulur; ham ses/video/ekran görüntüsü ayrıca isteğe bağlıdır. Kimlik bilgileri, ilgisiz kullanıcı içeriği ve gizli muhakeme dışarıda tutulur. Ağırlık ve veri hakları Eyleme’nin birinci taraf lisansından bağımsız kontrol edilir.
 
 Bir bölüm hedefi, gözlemleri, durum kestirimlerini, kullanılabilir eylemleri, önerilen/seçilen/yürütülen eylemi, zamanlamayı, gerçek sonuçları, hataları, insan düzeltmelerini ve ilgili bütün sürümleri bağlar. Yalnız başarılardan eğitim yapmak yerine uyuşmazlık, ret, timeout ve yarıda kesilen bölümler de korunur. Modelin tercih ettiği eylem bir öneridir; gözlenen sonuç ve incelenmiş insan düzeltmesi ayrı köken taşır. Ödül/etiket tanımları sürümlüdür; başarılı komut otomatik olarak başarılı görev sayılmaz.
 
@@ -220,7 +220,7 @@ Rol, yetenek profili, model mimarisi ve çalışma konumu farklı boyutlardır. 
 
 ### Tarihli açık ağırlık örnekleriyle dokuz sabit rol
 
-Tablo **13 Ekim 2026** tarihli açık Hugging Face depo indirme gözlemlerini kullanır; tam kaynak sürümleri [örnek snapshot’ındadır](https://github.com/eylema-dev/devguide/blob/main/records/open-weight-role-examples.json). Yaygın indirilen örneklerle yeni rol uzmanlarını bir araya getirir; dünya sıralaması veya her iş için en iyi model iddiası değildir. İndirme sayısı tekil kullanıcı veya kalite değildir. [Metrik tanımı](https://huggingface.co/docs/hub/models-download-stats).
+Tablo **13 Ekim 2026** tarihli açık Hugging Face depo indirme gözlemlerini kullanır; tam kaynak sürümleri [örnek snapshot’ındadır](https://github.com/eyleme-dev/devguide/blob/main/records/open-weight-role-examples.json). Yaygın indirilen örneklerle yeni rol uzmanlarını bir araya getirir; dünya sıralaması veya her iş için en iyi model iddiası değildir. İndirme sayısı tekil kullanıcı veya kalite değildir. [Metrik tanımı](https://huggingface.co/docs/hub/models-download-stats).
 
 | Rol kimliği | Rol | Sorumluluk | Türlü çıktı | Açık ağırlık örnekleri (30 günlük indirme) | Goal’ler |
 |---|---|---|---|---|---|
@@ -234,7 +234,7 @@ Tablo **13 Ekim 2026** tarihli açık Hugging Face depo indirme gözlemlerini ku
 | `critic` | Değerlendirici / eleştirmen | Plan/sonuçları inceler; eksik ve çelişkileri bulur. | Bulgu/ödül değerlendirmesi; yürütme kanıtı değildir | [Qwen/Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) (9,880,368); [Skywork/Skywork-Reward-V2-Qwen3-8B](https://huggingface.co/Skywork/Skywork-Reward-V2-Qwen3-8B) (2,014) | G50, G51 |
 | `representation` | Temsil / erişim | İzinli ilgili kaynakları embedding ile temsil eder, getirir ve yeniden sıralar. | Sürümlü vektörler/sıralı kaynak referansları | [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) (220,348,634); [BAAI/bge-m3](https://huggingface.co/BAAI/bge-m3) (32,825,246); [intfloat/multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small) (10,051,718) | G67, G68, G69, G70, G71 |
 
-BART MNLI sınıflandırma başlangıcıdır; Decision 2.0 robot politikası yerine yapılandırılmış seçim/evet-hayır/puan davranışı ekler. Yeni adaylarının indirme sayısı çok daha düşüktür. SmolVLA/OpenVLA robotik örnekleridir; iş/eylem/durum uyumu ve eğitim gerekir, hazır yerleştirme politikası değildir. Bağlantılı V-JEPA checkpoint’i video temsil encoder’ıdır; eyleme koşullu dünya tahmini ayrı profil ister. Cosmos ağırlık koşulları ayrıca erişim onayına bağlıdır. Ödül puanı ve modellerin uzlaşması doğruluk kanıtı değildir. Örnekler adaydır; benimsenmiş inference kitaplığı veya kabul edilmiş Eylema yürütümü değildir. Yayıncı model kartı ve ayrı artifact/operatör/hak kapıları izlenir.
+BART MNLI sınıflandırma başlangıcıdır; Decision 2.0 robot politikası yerine yapılandırılmış seçim/evet-hayır/puan davranışı ekler. Yeni adaylarının indirme sayısı çok daha düşüktür. SmolVLA/OpenVLA robotik örnekleridir; iş/eylem/durum uyumu ve eğitim gerekir, hazır yerleştirme politikası değildir. Bağlantılı V-JEPA checkpoint’i video temsil encoder’ıdır; eyleme koşullu dünya tahmini ayrı profil ister. Cosmos ağırlık koşulları ayrıca erişim onayına bağlıdır. Ödül puanı ve modellerin uzlaşması doğruluk kanıtı değildir. Örnekler adaydır; benimsenmiş inference kitaplığı veya kabul edilmiş Eyleme yürütümü değildir. Yayıncı model kartı ve ayrı artifact/operatör/hak kapıları izlenir.
 
 ### Ayrı ses, görüntü ve metin profilleri
 
@@ -266,7 +266,7 @@ RAG, birleşebilir harness alt akışıdır: izinli belge → sınırlı alma/pa
 
 ### İnsan yönlendirmeli geliştirme ve native iyileştirme
 
-Eylema, insan hayal gücü ve uzman değerlendirmesini büyük dil modellerinin desteğiyle esnek agentic sistemlere dönüştüren bir platformdur. İnsanlar amaçları, sınırları ve kabulü belirler; sınırlı uzman bileşenler izinli işi önerir ve yürütür. Sabit rol/araç/veri sözleşmeleri model değişiminde korunur. Aynı harness, açıkça bağlanan büyük bir modelle veya kabul edilmiş yerel açık ağırlık profil takımıyla çalışabilir. Seçimi ölçülmüş uçtan uca kalite, gizlilik ve kaynak verimliliği belirler; daha büyük model ya da ek döngü kendiliğinden daha iyi değildir.
+Eyleme, insan hayal gücü ve uzman değerlendirmesini büyük dil modellerinin desteğiyle esnek agentic sistemlere dönüştüren bir platformdur. İnsanlar amaçları, sınırları ve kabulü belirler; sınırlı uzman bileşenler izinli işi önerir ve yürütür. Sabit rol/araç/veri sözleşmeleri model değişiminde korunur. Aynı harness, açıkça bağlanan büyük bir modelle veya kabul edilmiş yerel açık ağırlık profil takımıyla çalışabilir. Seçimi ölçülmüş uçtan uca kalite, gizlilik ve kaynak verimliliği belirler; daha büyük model ya da ek döngü kendiliğinden daha iyi değildir.
 
 İyileştirme döngüsü: izinli sonuçlar ve düzeltmeler → sürümlü veri/RAG kaynakları → modele özel reçete → sınırlı aday eğitimi → bağımsız ayrılmış değerlendirme → insan denetiminde canary/kabul veya geri alma → uygunsa yeniden kullanılabilir skill. Yürütme, veri toplama, eğitim, dışarı açıklama ve paylaşım ayrı izinlerdir. Hiçbir kayıt platformu değiştirme, skill yayımlama veya başka projenin verisiyle eğitim yetkisi vermez. Kanıtlar gözlenen girdi/çıktı/etkileri ve kısa karar gerekçelerini içerir; gizli özel muhakemeyi içermez.
 
@@ -365,15 +365,15 @@ Tam özellikli kendi web motoru, 3B motor, model yürütücüsü ve eğitim ekos
 - [Geliştirme ve yerel işletim takımı protokolleri](development-and-operations.md)
 - [Öğrenme verisi ve eğitim protokolü](learning-and-training.md)
 - [API sözleşmesi ve insan denetimi](api-reference.md)
-- [Geliştirme isteği JSON şeması](https://github.com/eylema-dev/eylema/blob/main/ai-team-protocol/request.schema.json)
-- [Yerel model takımı JSON şeması](https://github.com/eylema-dev/eylema/blob/main/ai-team-protocol/v0.2/model-set-release.schema.json)
+- [Geliştirme isteği JSON şeması](https://github.com/eyleme-dev/eyleme/blob/main/ai-team-protocol/request.schema.json)
+- [Yerel model takımı JSON şeması](https://github.com/eyleme-dev/eyleme/blob/main/ai-team-protocol/v0.2/model-set-release.schema.json)
 
 Bu belgeler mimari ve yapısal sözleşme teslimidir. Depo katkı araçları ve PR çalışması, planlanan otonom geliştirme takımından ayrıdır. Bu belgeler eğitim, model/cihaz kıyası, framework yürütmesi veya zamanlanmış izleme kanıtı sunmaz.
 
 ## Proje kapsamlı bellek ve knowledge graph
 
-Bakımcı bellek katmanı istedi ve CortexDB ile knowledge graph örüntüsünü kastettiğini açıkladı. Altı isteğe bağlı bellek türü working, episodic, semantic, procedural, knowledge_graph ve analytical’dır. Sabit kendi Rust sözleşmelerimiz arkasında ortak platform yeteneğidir; ek zorunlu model rolleri değildir. [Bellek katmanı](https://github.com/eylema-dev/devguide/blob/main/docs/tr/memory-layer.md) amaç kontrollü yazım/erişim, zamanlı kaynak atıflı graph iddiası, çelişkili kanıt, bağlam sınırı, geri çekme ve backend profillerini tanımlar. G63 ve G87–G90 ayrı uygulama/kabul kapılarıdır; bu sürüm runtime’larını sağlamaz.
+Bakımcı bellek katmanı istedi ve CortexDB ile knowledge graph örüntüsünü kastettiğini açıkladı. Altı isteğe bağlı bellek türü working, episodic, semantic, procedural, knowledge_graph ve analytical’dır. Sabit kendi Rust sözleşmelerimiz arkasında ortak platform yeteneğidir; ek zorunlu model rolleri değildir. [Bellek katmanı](https://github.com/eyleme-dev/devguide/blob/main/docs/tr/memory-layer.md) amaç kontrollü yazım/erişim, zamanlı kaynak atıflı graph iddiası, çelişkili kanıt, bağlam sınırı, geri çekme ve backend profillerini tanımlar. G63 ve G87–G90 ayrı uygulama/kabul kapılarıdır; bu sürüm runtime’larını sağlamaz.
 
-SQLite cihazda yerel transactional depolama ve DuckDB analitik/sütun odaklı sorgu referans/veri alışverişi adaylarıdır; kurulmuş üretim motoru veya onaylanmış bağımlılık istisnası değildir. C/C++ motorları binding ile birinci taraf Rust olmaz. Üretim journal/index/graph/analitik davranışını Eylema sahiplenir; kullanılamayan backend açık hata verir. Bakımcının CortexDB açıklaması paket seçmez.
+SQLite cihazda yerel transactional depolama ve DuckDB analitik/sütun odaklı sorgu referans/veri alışverişi adaylarıdır; kurulmuş üretim motoru veya onaylanmış bağımlılık istisnası değildir. C/C++ motorları binding ile birinci taraf Rust olmaz. Üretim journal/index/graph/analitik davranışını Eyleme sahiplenir; kullanılamayan backend açık hata verir. Bakımcının CortexDB açıklaması paket seçmez.
 
 Bellek kaynak/proje/şema/index sürümlerini, geçerliliği, doğrulama durumunu ve miras execute/collect/train/external_disclosure/ecosystem_export haklarını korur. Filtreleme sıralama/dolaşım öncesindedir, veri aktarımı güncel politikayı tekrar denetler. Tahmin, tekrarlanan model uzlaşması ve graph bağlantısı doğrulanmış gerçek veya eylem yetkisi olamaz. Kaynak geri çekme gelecekteki türev/cache erişimini geçersizleştirir, etkilenen eğitim adaylarını karantinaya alır; fiziksel silme, açıklanmış kopyayı geri getirme veya model unlearning kanıtı değildir. Erken G72 metin/RAG kabulü artık sınırlı G88 graph/deneyim erişimini içerir; isteğe bağlı ses/görsel/dünya modeli gerektirmez. Analitik kapsam ve backend veri alışverişi sonraki kapılardır.
