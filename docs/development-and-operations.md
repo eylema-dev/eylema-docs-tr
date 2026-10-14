@@ -1,8 +1,8 @@
-# Eylema — Geliştirme ve yerel işletim takımı protokolleri — v0.2
+# Eyleme — Geliştirme ve yerel işletim takımı protokolleri — v0.2
 
-Dil: Türkçe. Kaynak sürüm: 0.2.0. İngilizce kaynak belge: [AI team protocols](https://github.com/eylema-dev/eylema-docs-en/blob/main/docs/development-and-operations.md). Projenin API kimlikleri, alanları ve hata kodları İngilizce kalır.
+Dil: Türkçe. Kaynak sürüm: 0.2.0. İngilizce kaynak belge: [AI team protocols](https://github.com/eyleme-dev/eylema-docs-en/blob/main/docs/development-and-operations.md). Projenin API kimlikleri, alanları ve hata kodları İngilizce kalır.
 
-Tarih: 11 Ekim 2026. Durum: uygulanacak protokol tasarımı; çalışan orkestratör, model seçimi, otonom PR üretimi veya zamanlanmış izleme kurulmuş değildir. Depo katkı şablonları ve CI kontrolleri [CONTRIBUTING.tr.md](https://github.com/eylema-dev/devguide/blob/main/CONTRIBUTING.tr.md) içinde ayrıca tanımlanır. NeedSpec şeması ve runtime protokolü 0.1.0 kalır; yeni macOS ModelSetRelease şeması 0.2.0’dır. Örnekler gerçek görev, model veya ölçüm değildir.
+Tarih: 11 Ekim 2026. Durum: uygulanacak protokol tasarımı; çalışan orkestratör, model seçimi, otonom PR üretimi veya zamanlanmış izleme kurulmuş değildir. Depo katkı şablonları ve CI kontrolleri [CONTRIBUTING.tr.md](https://github.com/eyleme-dev/devguide/blob/main/CONTRIBUTING.tr.md) içinde ayrıca tanımlanır. NeedSpec şeması ve runtime protokolü 0.1.0 kalır; yeni macOS ModelSetRelease şeması 0.2.0’dır. Örnekler gerçek görev, model veya ölçüm değildir.
 
 ## İki takım, ortak kanıt düzeni
 
