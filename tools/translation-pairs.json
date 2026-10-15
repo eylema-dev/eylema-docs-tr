@@ -13,7 +13,7 @@
     {
       "path": "README.md",
       "language": "tr",
-      "sha256": "4c856bb08a7696727ac051c9bf9340c97e22a542008d0ce20d5d1dbaeb426bf3"
+      "sha256": "51aec11a020972221d8f2ce3f5e2a58da357c0205c0acc80aeae3bca7e0b1e0e"
     },
     {
       "path": "docs/api-reference.md",
@@ -23,7 +23,7 @@
     {
       "path": "docs/architecture.md",
       "language": "tr",
-      "sha256": "8d8ef0aa2e419aedc1a2995e566464e1a15248848a5432e3f302e16db0fade1f"
+      "sha256": "00023a39dbe9c0ded348ee68c53b665aa0994661f860e669c2e7581d11aae805"
     },
     {
       "path": "docs/development-and-operations.md",
@@ -38,7 +38,7 @@
     {
       "path": "docs/project-structure.md",
       "language": "tr",
-      "sha256": "660b01e74905aebda93f9003d6ca0f187cdea5efe546b7d13c528b92e1e8b00f"
+      "sha256": "2ef95bfaec3cc096b52275fd9cbb7ead30eaa88f6f47568b336bed24e92413f2"
     },
     {
       "path": "docs/roadmap.md",

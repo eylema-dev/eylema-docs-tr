@@ -10,6 +10,12 @@ Bu belge güncel mimari yönü tanımlar. v0.2’deki kendi Rust bileşenleri ve
 
 12 Ekim 2026 tarihli [karar kaydı ve donanım envanteri](project-structure.md), geliştirici odaklı tek kullanıcılı yerel görev konsolunu, erken ihtiyaçtan PR’a kanıtı ve kendi kaynak/belgelerimiz için Apache-2.0 seçimini kaydeder. Birincil M4 Pro hedefi korunur; Mac mini M4 ve Linux RTX 4070 Ti Super ayrı kabul bekleyen ek cihazlardır. Mevcut Rust tipleri, EYL/EYLJ ve platform bağları korunur; model/öğrenme deterministik ve cihaz ölçümünü izler. Güncel uygulama kanıtı [çekirdektedir](https://github.com/eyleme-dev/eyleme/blob/main/README.tr.md).
 
+## Kabul edilen ürün ve ticari sınır — 15 Ekim 2026
+
+[Ürün ailesi sözleşmesi](https://github.com/eyleme-dev/eyleme/blob/main/docs/tr/product-family.md) tek **Eyleme** markasını tanımlar: public Apache-2.0 topluluk çekirdeği ile ayrı geliştirilen private kaynaklı abonelik ürünleri **Eyleme Derleme** ve **Eyleme Onama**. Birlikte kullanım akışı **Derleme → Onama → Eyleme** olarak anlatılır. Bu sıralama aboneliği veya ticari servisi desteklenen bağımsız çekirdek akışları için önkoşul yapmaz; çekirdek erişim ve güvenlik kontrolleri açık kaynak kalır.
+
+İsteğe bağlı ticari bütünleşmeler açık sürümlenmiş arayüzler ve ayrıca değerlendirilen yetki kullanır. Onama politika kontrolleri toplama, planlama, yürütme ve açıklama boyunca uygulanabilir; ortak marka veya ürünü kullanma hakkı yetkiyi genişletmez. Public arayüz belgeleri ve topluluk uzantıları açık kalabilirken ticari uygulamalar ve müşteri verileri private kalır. Bunlar kabul edilen ürün sınırlarıdır; çalışan faturalama, bütünleşme veya üretim kabulü iddiası değildir. Mevcut teknik kimlikler, runtime biçimleri ve kanıt kapıları değişmez.
+
 ## Kabul edilmiş deneysel macOS kapsamı
 
 İlk sürüm 24 GB birleşik belleğe sahip tek Apple M4 Pro MacBook Pro cihazını hedefler. G04 özgün macOS 27.0.1 toolchain/SDK/tarayıcı envanterini kaydeder; her yeni kabul çalışması gerçek ortamını ve yürütümünü ayrıca kaydetmelidir. Linux desteği ve ikinci fiziksel cihaz ertelenmiştir. Bu Mac'te ölçülen farklı iş yükleri birden fazla cihaz sayılmaz. Bu ürün belgesi deposu dokümantasyon aşamasında kalır; güncel runtime kanıtı çekirdeğe aittir ve ek hedef seçmek desteği kanıtlamaz.
