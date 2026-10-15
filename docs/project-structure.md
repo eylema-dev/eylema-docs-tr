@@ -1,6 +1,6 @@
 # Proje yapısı ve kabul edilen ilk ürün kararları
 
-Sürüm **0.5.0**, 13 Ekim 2026. [İngilizce kaynak](https://github.com/eyleme-dev/eylema-docs-en/blob/main/docs/project-structure.md).
+Sürüm **0.5.0**, 13 Ekim 2026. [İngilizce kaynak](https://github.com/eyleme-dev/eyleme-docs-en/blob/main/docs/project-structure.md).
 
 Bakımcı 12 Ekim 2026 tarihinde 1, 2, 4, 5, 6 ve 8 numaralı önerileri kabul etti, aşağıdaki üç cihazlık envanteri bildirdi ve Apache-2.0 seçti. Bu kararlar güncel ürün yönünü günceller. Tarihsel Goal kayıtlarını yeniden yazmaz; kalan runtime, model veya donanım kabulünün geçtiğini iddia etmez.
 
@@ -33,7 +33,7 @@ Tek, bize ait Rust çalışma alanı ve tek yerel native host süreci kullanıl�
 | `crates/eylema-host` | Runtime/journal bileşimi, dayanıklı kurtarma ve yerel hizmet sınırı |
 | `crates/eylema-web` | Yerel tarayıcı arayüzü ve sınırlı sunum/taşıma adaptörleri |
 | `apps/eylema` | Native CLI/hizmet bileşimi ve yapılandırma |
-| `eylema-examples/task-console` | Çekirdek revizyonuna sabit dış tüketici; runtime kodunun kopyası yok |
+| `eyleme-examples/task-console` | Çekirdek revizyonuna sabit dış tüketici; runtime kodunun kopyası yok |
 
 Bağımlılıklar sözleşmelere yönelir. Yürütme, yetki ve kalıcılık host'a aittir. Tarayıcı durumu sunar ve tanımlı GPU yeteneklerini kullanır; günlüğü doğrudan değiştiremez veya native yetki veremez. Tarayıcının kapanması native işi durdurmaz; yeniden açılış snapshot/olayları okur. Rust 1.99.0 ve aarch64-apple-darwin native temel olarak kalır; seçili taşınabilir kütüphaneler wasm32-unknown-unknown'a derlenir. Derleme ve gerçek hedef yürütümü ayrı kanıttır.
 

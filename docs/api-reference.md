@@ -7,7 +7,7 @@ canonical_language: en
 
 # Eyleme — Ortak API ve insan denetimi — v0.1
 
-[İngilizce belge](https://github.com/eyleme-dev/eylema-docs-en/blob/main/docs/api-reference.md) esas kaynaktır; bu belge onun tam Türkçe çevirisidir. İşlem kimlikleri, alan adları, durumlar ve hata kodları her dilde İngilizce kalır. Belge, önerilen bir sözleşmeyi tanımlar. Adlandırılan uç noktalar, SDK, üreticiler ve uygunluk testleri bu belgeyle uygulanmış veya çalıştığı gösterilmiş değildir. Bu sürümde OpenAPI tanım dosyası teslim edilmez.
+[İngilizce belge](https://github.com/eyleme-dev/eyleme-docs-en/blob/main/docs/api-reference.md) esas kaynaktır; bu belge onun tam Türkçe çevirisidir. İşlem kimlikleri, alan adları, durumlar ve hata kodları her dilde İngilizce kalır. Belge, önerilen bir sözleşmeyi tanımlar. Adlandırılan uç noktalar, SDK, üreticiler ve uygunluk testleri bu belgeyle uygulanmış veya çalıştığı gösterilmiş değildir. Bu sürümde OpenAPI tanım dosyası teslim edilmez.
 
 ## Tek sözleşme, farklı istemciler
 
