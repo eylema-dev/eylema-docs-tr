@@ -1,6 +1,6 @@
 # Eyleme — Öğrenme verisi ve eğitim protokolü — v0.2
 
-Dil: Türkçe. Kaynak sürüm: 0.2.0. İngilizce kaynak belge: [Learning data and training protocol](https://github.com/eyleme-dev/eylema-docs-en/blob/main/docs/learning-and-training.md). Makinece okunabilir kimlik ve alan adları iki dilde aynıdır.
+Dil: Türkçe. Kaynak sürüm: 0.2.0. İngilizce kaynak belge: [Learning data and training protocol](https://github.com/eyleme-dev/eyleme-docs-en/blob/main/docs/learning-and-training.md). Makinece okunabilir kimlik ve alan adları iki dilde aynıdır.
 
 Tarih: 11 Ekim 2026. Durum: tasarım önerisi. Bu belge veri toplamayı, eğitim başlatmayı veya model dağıtmayı etkinleştirmez. Gerçek eğitim, dışa aktarma, performans ölçümü veya model kabul testi çalıştırılmadı.
 

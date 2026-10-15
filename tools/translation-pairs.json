@@ -13,37 +13,37 @@
     {
       "path": "README.md",
       "language": "tr",
-      "sha256": "c30c7e8fa6657d7135034274a5d407d4742192da2c1841c296fede2c38209f64"
+      "sha256": "4c856bb08a7696727ac051c9bf9340c97e22a542008d0ce20d5d1dbaeb426bf3"
     },
     {
       "path": "docs/api-reference.md",
       "language": "tr",
-      "sha256": "4525816474bf75e269900672575c5cee5a6d70d510b1a7f3ea810be31d5f2e53"
+      "sha256": "1296a2ee7134745f11f1fe947a990f623830c2307ffe576c9e30d0243da5f87b"
     },
     {
       "path": "docs/architecture.md",
       "language": "tr",
-      "sha256": "8fed0a6ff63b96455d2d91a2bec48c0356bf9f15fdc40412c1d07afcfa851cb1"
+      "sha256": "8d8ef0aa2e419aedc1a2995e566464e1a15248848a5432e3f302e16db0fade1f"
     },
     {
       "path": "docs/development-and-operations.md",
       "language": "tr",
-      "sha256": "fcdde938773ba37404cef09995ed23f4f0b0c8244c2dcda60fec946e3f32a12d"
+      "sha256": "afae967fb23d26343603a0f67360871b62527fb10364b6d02243ea6b93f2d4d6"
     },
     {
       "path": "docs/learning-and-training.md",
       "language": "tr",
-      "sha256": "94cc74a1bfdddf8ab2d397b492b234f5932f454f8b5bf433c139221542f7e25d"
+      "sha256": "60d9080c33db095cc02280d3d5f0d48ba2ec25e38d278222a32bab04bee9dcb5"
     },
     {
       "path": "docs/project-structure.md",
       "language": "tr",
-      "sha256": "8c75872c27f1bed6504337f41aef4c6cb24072af93e1fbdb6234efdb1a2c70a7"
+      "sha256": "660b01e74905aebda93f9003d6ca0f187cdea5efe546b7d13c528b92e1e8b00f"
     },
     {
       "path": "docs/roadmap.md",
       "language": "tr",
-      "sha256": "8c14fcf3b9840b1da8e052e5a41963617daef2683cd01622c3f677e0a6d73409"
+      "sha256": "650734e19beb37935c36761cfe590f90110a523ce26f5ced0aa18d6cc20e5560"
     }
   ]
 }
