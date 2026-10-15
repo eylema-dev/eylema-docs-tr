@@ -4,6 +4,12 @@ Sürüm **0.5.0**, 13 Ekim 2026. [İngilizce kaynak](https://github.com/eyleme-d
 
 Bakımcı 12 Ekim 2026 tarihinde 1, 2, 4, 5, 6 ve 8 numaralı önerileri kabul etti, aşağıdaki üç cihazlık envanteri bildirdi ve Apache-2.0 seçti. Bu kararlar güncel ürün yönünü günceller. Tarihsel Goal kayıtlarını yeniden yazmaz; kalan runtime, model veya donanım kabulünün geçtiğini iddia etmez.
 
+## Kabul edilen tek marka modeli — 15 Ekim 2026
+
+Bakımcı tek marka olarak **Eyleme**'yi, public topluluk giriş noktası olarak [eyleme.dev](https://eyleme.dev) adresini seçti. Açık kaynak Eyleme çekirdeği Apache-2.0 altında bağımsız kullanılabilir kalır. **Eyleme Derleme** ve **Eyleme Onama**, ayrı geliştirilen private kaynaklı ücretli abonelik ürünleridir; bu karar ticari konumlarını değiştirir, aşağıdaki görev konsolu kabul senaryolarını değiştirmez. Desteklenen bağımsız çekirdek akışları iki abonelik olmadan temel erişim ve güvenlik kontrollerini korur.
+
+[Ürün ailesi sözleşmesi](https://github.com/eyleme-dev/eyleme/blob/main/docs/tr/product-family.md), **Derleme → Onama → Eyleme** anlatımını, isteğe bağlı bütünleşme sınırını ve public/private ayrımını yönetir. Yeni private uygulamalar mevcut açık kaynak lisans izinlerini geri almaz. Faturalama, fiyatlar ve genel abonelik erişimi bu belge kararıyla uygulanmaz.
+
 ## İlk kullanıcı ve ürün sonucu
 
 Bakımcının 13 Ekim 2026 açıklaması Eyleme’yi agentic çerçeveyi oluşturan platform olarak tanımlar: kullanıcılar işbirlikli geri besleme döngülerini kurar, uyumlu yerel modelleri atayıp değiştirir, kararları inceler ve izinli eğitim verisini toplar. Sabit rol/davranış sözleşmeleri belirli model ailelerinden uzun ömürlüdür. MiniCPM, Qwen ve yerel karar politikaları bu çerçevedeki katılımcılardır; ürünün sabit kimliği değildir. [Mimari revizyonu](architecture.md#işbirlikli-agentic-döngü-ve-sabit-platform-sözleşmeleri) döngüyü, değiştirme yaşam döngüsünü, kanıt ve veri kümesi sınırlarını tanımlar; bütünleşmeleri uygulanıp kabul edilene kadar öneridir.
